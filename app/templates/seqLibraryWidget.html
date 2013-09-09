@@ -1,0 +1,22 @@
+<div class="panel panel-warning">
+	<div class="panel-heading" >{{libdata.name}}</div>
+	<!-- TODO: Make this collapsible -->
+	<ul class="list-group">
+		<li class="list-group-item" ng-repeat="file in libdata.files" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="list1" jqyoui-draggable="{animate:true}">{{file}}</li>
+
+	</ul>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<div class="input-group">
+			<span class="input-group-addon">Ins</span>
+			<input type="text" class="form-control" placeholder="{{libdata.insert}}">
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="input-group">
+			<span class="input-group-addon">&#963;</span>
+			<input type="text" class="form-control" placeholder="{{libdata.stdev}}">
+		</div>
+	</div>
+</div>
