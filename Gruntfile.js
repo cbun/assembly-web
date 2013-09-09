@@ -66,21 +66,27 @@ module.exports = function (grunt) {
     },
     connect: {
       options: {
-        port: 9000,
+        port: 9001,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost'
       },
-      livereload: {
-        options: {
-          middleware: function (connect) {
-            return [
-              lrSnippet,
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, yeomanConfig.app)
-            ];
-          }
-        }
-      },
+    livereload: {
+	options: {
+	    middleware: function (connect) {
+		return [
+		    lrSnippet,
+		    mountFolder(connect, '.tmp'),
+		    mountFolder(connect, yeomanConfig.app),
+		    function(req, res, next) {
+			console.log('hello');
+			res.setHeader('Access-Control-Allow-Origin', '*');
+			res.setHeader('Access-Control-Allow-Methods', '*');
+			next();
+		    }
+		];
+	    }
+	}
+    },
       test: {
         options: {
           middleware: function (connect) {
@@ -361,28 +367,4 @@ module.exports = function (grunt) {
   ]);
 };
 
-var corsMiddleware = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-}
 
-grunt.initConfig({
-  connect: {
-    server: {
-      options: {
-        middleware: function(connect, options) {
-          return [
-            // Serve static files
-            connect.static(options.base),
-            // Make empty directories browsable
-            connect.directory(options.base),
-            // CORS support
-            corsMiddleware
-          ];
-        }
-      }
-    }
-  }
-});
