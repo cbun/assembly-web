@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('assemblyNgApp', ['ui.bootstrap', 
+var app = angular.module('assemblyNgApp', ['ngResource', 'ui.bootstrap', 
   'ngDragDrop', 'ngGrid', 'restangular']);
 
 app.config(function ($routeProvider) {
@@ -15,5 +15,5 @@ app.config(function ($routeProvider) {
   });
 
 app.config(function(RestangularProvider){
-  RestangularProvider.setBaseUrl("http://140.221.84.203/");
+  RestangularProvider.setBaseUrl("http://140.221.84.203:8000/");
 });

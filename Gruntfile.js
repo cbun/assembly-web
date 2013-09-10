@@ -15,7 +15,7 @@ var mountFolder = function (connect, dir) {
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
-
+    grunt.loadNpmTasks('grunt-contrib-connect');
   // configurable paths
   var yeomanConfig = {
     app: 'app',
@@ -66,27 +66,27 @@ module.exports = function (grunt) {
     },
     connect: {
       options: {
-        port: 9001,
+        port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost'
       },
-    livereload: {
-	options: {
-	    middleware: function (connect) {
-		return [
-		    lrSnippet,
-		    mountFolder(connect, '.tmp'),
-		    mountFolder(connect, yeomanConfig.app),
-		    function(req, res, next) {
-			console.log('hello');
-			res.setHeader('Access-Control-Allow-Origin', '*');
-			res.setHeader('Access-Control-Allow-Methods', '*');
-			next();
-		    }
-		];
+	livereload: {
+	    options: {
+		middleware: function (connect) {
+		    return [
+			lrSnippet,
+			mountFolder(connect, '.tmp'),
+			mountFolder(connect, yeomanConfig.app),
+			function(req, res, next) {
+			    res.setHeader('Access-Control-Allow-Origin', '*');
+			    res.setHeader('Access-Control-Allow-Methods', '*');
+			    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+			    next();
+			}
+		    ];
+		}
 	    }
-	}
-    },
+	},
       test: {
         options: {
           middleware: function (connect) {
