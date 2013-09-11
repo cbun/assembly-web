@@ -6,6 +6,7 @@ angular.module('assemblyNgApp')
     $scope.stagedLibraries = [];
     $scope.libCount = 0;
     $scope.shockUrl = "";
+    $scope.userFiles = [];
 
     $scope.stageFile = function(files){
     	//initial files
@@ -16,8 +17,6 @@ angular.module('assemblyNgApp')
     	var lastLib = $scope.stagedLibraries.pop();
     	lastLib.files = lastLib.files.concat(files);
     	$scope.stagedLibraries.push(lastLib);
-    	console.log(lastLib);
-
     };
 
     $scope.addLibrary = function(){
@@ -38,10 +37,6 @@ angular.module('assemblyNgApp')
 	};
 
     //Test
-    $scope.userFiles = [
-      {"filename": "1.fq"},
-      {"filename": "2.fq"}
-    ];
     $scope.arModules = [
       {name: "kiki",
        version: "1.0"},
@@ -57,19 +52,35 @@ angular.module('assemblyNgApp')
     $scope.returnMsg = userroute.getList('files');
 
     $scope.getShockUrl = function(){
-    	var shockCall = Restangular.one('shock/').get();
-    	$scope.shockUrl = shockCall;
-    	console.log($scope.shockUrl);
+    	console.log("getShockUrl()");
+    	var shockCall = Restangular.one('shock/').getList();
+    	shockCall.then(function(data){
+    		return data.shockurl;
+    	});
     };
 
     $scope.listUserFiles = function(){
-    	if ($scope.shockUrl == ""){
-    		$scope.getShockUrl();
-    	}
-    	console.log($scope.shockUrl);
+    	// if ($scope.shockUrl == ""){
+    	// 	$scope.getShockUrl();
+    	// }
 
-    	$scope.userFileRes = Restangular.oneUrl($scope.shockURL + '/node',
-    		{'Authorization': $scope.arToken}).get();
+    	var shockCall = Restangular.one('shock/').getList();
+    	shockCall.then(function(data){
+    		return data.shockurl;
+    	}).then(function(msg) {
+    		var shockreq = "http://" + msg;
+    		console.log(shockreq);
+            var shockobj = Restangular.oneUrl('', shockreq);
+    		shockobj.getList('node',{}, {
+                "Authorization": "OAuth " + $scope.arToken
+            }).then(function(shockres, error){
+                    for (var i=0; i < shockres.length;i++) {
+                        $scope.userFiles.push({'Filename': shockres[i].file.name});
+                    }
+    			});
+
+    	});
+
     };
 
 
