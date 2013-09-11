@@ -6,25 +6,21 @@ body {
 }
 
 .logo{
-    font-family: 'Cabin Sketch', cursive;
+    font-family:'Coustard', serif;
     font-size: 300%;
 }
 
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
-    font-size: 18px;
-    font-weight: 200;
-    line-height: 30px;
-    background-color: #eee;
-    border-radius: 6px;
-    padding: 60px;
+.navbar{
+    background: #380B61;
 }
 
-.hero-unit h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
+.active li{
+    background: purple;
+}
+
+.ar-panel{
+    padding: 15px;
+    margin-bottom:15px;
 }
 
 .user-files-grid {
@@ -35,4 +31,8 @@ body {
 .user-staged-files {
     height: 400px;
     overflow: scroll;
+}
+
+.ar-file-stage{
+    height:800px;
 }

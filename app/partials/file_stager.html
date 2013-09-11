@@ -14,7 +14,7 @@
 				<div ng-repeat="lib in stagedLibraries">
 					<ar-lib libdata=lib></ar-lib>
 				</div>
-				<div class="btn btn-warning btn-xs" ng-click="addLibrary()"><span class="glyphicon glyphicon-plus-sign"></span>  New Library
+				<div class="btn btn-warning btn-xs" ng-click="addLibrary()" ng-show="stagedLibraries.length > 0"><span class="glyphicon glyphicon-plus-sign"></span>  New Library
 				</div>
 			</div>
 		</div>
