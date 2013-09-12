@@ -1,7 +1,8 @@
+<div class="row">
 <div class="row"><h1>Step 1: Stage Files</h1></div>
+<div class="row">
 	<div class="col-md-6 well">
 		<div class="user-files-grid col-md-12" ng-grid="gridOptions"></div>
-		<button class="btn btn-sm btn-success" ng-click="stageFile(mySelections)" ng-show="mySelections.length > 0">Stage file<span ng-show="mySelections.length > 1">s</span> <span class="badge">  {{mySelections.length}}</span></button>
 	</div>
 	<div class="col-md-6 well">
 		<div id="staged" class="user-staged-files">
@@ -11,14 +12,31 @@
 				</div>
 			</div>
 			<div class="panel-body">
-				<div ng-repeat="lib in stagedLibraries">
+				<div ng-repeat="lib in stagedLibraries track by $index">
 					<ar-lib libdata=lib></ar-lib>
 				</div>
-				<div class="btn btn-warning btn-xs" ng-click="addLibrary()" ng-show="stagedLibraries.length > 0"><span class="glyphicon glyphicon-plus-sign"></span>  New Library
+				<div class="btn btn-warning btn-sm" ng-click="addLibrary()" ng-show="stagedLibraries.length > 0"><span class="glyphicon glyphicon-plus-sign"></span>  New Library
 				</div>
 			</div>
 		</div>
-		<div id="stage-nav" class="col-md-2"></div>
 	</div>
+	</div>
+		<!-- button row -->
+		<div class="row">
+			<div class="col-md-6">
+				<button class="btn btn-sm btn-info" ng-model="showUpload" ng-click="toggleUpload()">
+					<span class="glyphicon glyphicon-cloud-upload"></span> Upload</button>
+					<button class="btn btn-sm btn-success" ng-click="stageFile(mySelections)" ng-show="mySelections.length > 0">Stage file<span ng-show="mySelections.length > 1">s</span> <span class="badge">  {{mySelections.length}}</span></button>
+			</div>
+			<div class="col-md-6">
+				<button class="btn btn-sm btn-danger pull-right" ng-click="nextStage()">
+			<span class="glyphicon glyphicon-chevron-right"></span> Proceed</button>
+		</div>
+
+		</div>
+</div>
+<div class="row ar-uploader" ng-show="showUpload" ng-include src="'partials/uploader.html'">
+	Uploader
+</div>
 
 	

@@ -1,8 +1,9 @@
 'use strict';
 
 var app = angular.module('assemblyNgApp', ['ngResource', 'ui.bootstrap', 
-  'ngDragDrop', 'ngGrid', 'restangular']);
+  'ngDragDrop', 'ngGrid', 'restangular', 'blueimp.fileupload']);
 
+// Routing
 app.config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -14,13 +15,15 @@ app.config(function ($routeProvider) {
       });
   });
 
+
+// CORS support
 app.config(['$httpProvider', function($httpProvider) {
         delete $httpProvider.defaults.headers.common["X-Requested-With"]
       }]);
 
+// Restangular config
 app.config(function(RestangularProvider){
   RestangularProvider.setBaseUrl("http://140.221.84.203:8000/");
-
 
   RestangularProvider.setResponseExtractor(function(response, operation, what, url) {
         // Extract data objects from shock node

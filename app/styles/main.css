@@ -14,25 +14,40 @@ body {
     background: #380B61;
 }
 
-.active li{
+.active li {
     background: purple;
 }
 
 .ar-panel{
-    padding: 15px;
+    padding-bottom: 15px;
     margin-bottom:15px;
 }
 
 .user-files-grid {
     border: 1px solid rgb(212,212,212);
-    height: 400px;
+    height: 500px;
+    margin-bottom: 15px;
 }
 
 .user-staged-files {
-    height: 400px;
+    padding-bottom: : 15px;
+    height: 515px;
     overflow: scroll;
 }
 
 .ar-file-stage{
     height:800px;
 }
+
+.ar-pipeline-box {
+    height: 400px;
+}
+
+.ar-pipeline {
+    padding-top: 100px;
+}
+
+.ar-module {
+    margin: 1px;
+}
+

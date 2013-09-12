@@ -1,9 +1,9 @@
 <div class="ar-panel">
 <div class="panel panel-warning">
-	<div class="panel-heading" >{{libdata.name}}</div>
+	<div class="panel-heading" data-drop="true" data-jqyoui-options ng-model="list2" jqyoui-droppable>{{libdata.name}}</div>
 	<!-- TODO: Make this collapsible -->
 	<ul class="list-group">
-		<li class="list-group-item" ng-repeat="file in libdata.files" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="list1" jqyoui-draggable="{animate:true}">{{file}}</li>
+		<li class="list-group-item" ng-repeat="file in libdata.files" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="list1" jqyoui-draggable="{animate:true}">{{file.Filename}}</li>
 
 	</ul>
 </div>
