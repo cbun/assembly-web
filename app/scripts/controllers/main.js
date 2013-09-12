@@ -43,28 +43,42 @@ angular.module('assemblyNgApp')
     selectedItems: $scope.mySelections,
 	};
 
-    //Test
-    $scope.arModules = [
-      {name: "Kiki",
-       version: "1.0"},
-       {name: "Velvet",
-       version: "1.0"},
-       {name: "SPAdes"},
-       {name: "IDBA-UD"},
-       {name: "Discovar"},
-       {name: "MaSuRCA"},
-       {name: "BayesHammer"},
-       {name: "TagDust"},
-       {name: "SGA"},
-       {name: "SSPACE"},
-       {name: "SolexaQA"},
-       {name: "Mira"},
-       {name: "Ray"},
-       {name: "Allpaths-LG"},
-       {name: "A5"},
-       {name: "Reapr"},
 
-    ];
+    //Pipeline
+    $scope.arModules = null;
+    $scope.getArModules = function() {
+        if (!$scope.arModules) {
+            Restangular.one('module/').getList().
+            then(function(res){
+                $scope.arModules = res;
+                console.log(res);
+            });
+        }
+    };
+
+
+    //Test
+    // $scope.arModules = [
+    //   {name: "Kiki",
+    //    version: "1.0"},
+    //    {name: "Velvet",
+    //    version: "1.0"},
+    //    {name: "SPAdes"},
+    //    {name: "IDBA-UD"},
+    //    {name: "Discovar"},
+    //    {name: "MaSuRCA"},
+    //    {name: "BayesHammer"},
+    //    {name: "TagDust"},
+    //    {name: "SGA"},
+    //    {name: "SSPACE"},
+    //    {name: "SolexaQA"},
+    //    {name: "Mira"},
+    //    {name: "Ray"},
+    //    {name: "Allpaths-LG"},
+    //    {name: "A5"},
+    //    {name: "Reapr"},
+
+    // ];
 
     $scope.pipeline = [];
     $scope.arServerUrl = "140.221.84.203";
