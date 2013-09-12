@@ -1,7 +1,35 @@
-<div>
-	<h1>Stage 2: Build assembly pipeline</h1>
-	<select multiple ng-model="selectedModules">
-		<option ng-repeat="mod in arModules"value="{{mod.name}}">{{mod.name}}</option>
-	</select>
-	{{selectedModules}}
+<div class="">
+	<h1>Stage 2: Assembly Workflow</h1>
+<div class="row">
+	<div class="col-md-4">
+	<div class="btn btn-droppable " ng-repeat="item in arModules" data-drop="true" ng-model='arModules' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=arModules])'}"  jqyoui-droppable="{index: {{$index}}}">
+		<div class="btn btn-primary btn-draggable" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="arModules" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}" ng-hide="!item.name">{{item.name}}</div>
+	</div>
+	</div>
+
+	<div class="well col-md-8 ar-pipeline-box" data-drop="true" ng-model='pipeline' jqyoui-droppable="{multiple:true}">
+		<h2>Pipeline:</h2>
+		<div class="btn-group ar-pipeline">
+			<div class="btn-group" ng-repeat="item in pipeline">
+			<div class="btn btn-lg btn-success btn-draggable"  ng-show="item.name" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="pipeline" jqyoui-draggable="{index: {{$index}},animate:true}">{{item.name}}</div>
+			<div class="btn btn-lg btn-success dropdown-toggle"><span class="caret"></span></div>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#">Info</a></li>
+				<li><a href="#">Settings</a></li>
+				<li class="divider"></li>
+				<li><a href="#">Remove</a></li>
+			</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row well">
+	<div class="col-md-6">
+		<button class="btn btn-sm btn-danger" ng-click="nextStage()">
+			<span class="glyphicon glyphicon-chevron-left"></span> Back</button></div>
+	<div class="col-md-6">
+		<button class="btn btn-sm btn-danger pull-right" ng-click="nextStage()">
+			<span class="glyphicon glyphicon-chevron-right"></span> Proceed</button>
+	</div>
+</div>
 </div>

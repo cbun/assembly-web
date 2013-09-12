@@ -3,13 +3,10 @@
 		<title></title>
 	</head>
 	<body>
-		<div class="row">
-			<div class="ar-file-stage" ng-include src="'partials/file_stager.html'" data-ng-init="listUserFiles()"></div>
-		</div>
-		<div class="row">
-			<div ng-show="stagedLibraries.length > 0" ng-include src="'partials/pipeline_builder.html'"></div>
-		</div>
-		<div class="well" >
-		</div>
+		<div class="animate-switch-container container"
+		ng-switch on="arStage" >   
+		<div ng-switch-when=1 ng-include="'partials/file_stager.html'" data-ng-init="listUserFiles()"></div>
+		<div ng-switch-when=2 ng-include="'partials/pipeline_builder.html'" ></div>
+	</div>
 	</body>
 </html>
