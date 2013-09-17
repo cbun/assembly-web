@@ -127,7 +127,7 @@ var arasturl = 'http://140.221.84.203:8000';
 var uploadUrl = ''
 
 angular.module('assemblyNgApp')
-    .controller('FileUploadController', [
+    .controller('DemoFileUploadController', [
             '$scope', '$http', '$filter', '$window',
             function ($scope, $http) {
                 console.log('load controller')
@@ -145,26 +145,25 @@ angular.module('assemblyNgApp')
                     headers: {'Authorization': "OAuth " + $scope.arToken},
                     done: function(data){
                         console.log(data);
-                        console.log($scope);
+                        console.log($scope)
                         //$scope.queue = [];
                     }
 
                 };
-                $scope.queue = [];
-                // if (!isOnGitHub) {
-                //     $scope.loadingFiles = true;
-                //     $http.get($scope.uploadUrl)
-                //         .then(
-                //             function (response) {
-                //                 //console.log(response);
-                //                 $scope.loadingFiles = false;
-                //                 $scope.queue = response.data.file || [];
-                //             },
-                //             function () {
-                //                 $scope.loadingFiles = false;
-                //             }
-                //         );
-                // }
+
+                $scope.loadingFiles = true;
+                $http.get($scope.uploadUrl)
+                    .then(
+                        function (response) {
+                            //console.log(response);
+                            $scope.loadingFiles = false;
+                            $scope.queue = response.data.file || [];
+                        },
+                        function () {
+                            $scope.loadingFiles = false;
+                        }
+                    );
+
             }
         ])
 
