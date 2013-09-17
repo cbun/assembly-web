@@ -12,7 +12,7 @@
 				</div>
 			</div>
 			<div class="panel-body">
-				<div ng-repeat="lib in stagedLibraries track by $index">
+				<div ng-repeat="lib in stagedLibraries">
 					<ar-lib libdata=lib></ar-lib>
 				</div>
 				<div class="btn btn-warning btn-sm" ng-click="addLibrary()" ng-show="stagedLibraries.length > 0"><span class="glyphicon glyphicon-plus-sign"></span>  New Library
