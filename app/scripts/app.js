@@ -34,3 +34,20 @@ app.config(function(RestangularProvider){
         return response;
     });
 });
+
+
+//Blueimp
+
+
+app.config(['$httpProvider', 'fileUploadProvider',
+            function ($httpProvider, fileUploadProvider) {
+                delete $httpProvider.defaults.headers.common['X-Requested-With'];
+                console.log('config');
+                fileUploadProvider.defaults.redirect = window.location.href.replace(
+                    /\/[^\/]*$/,
+                    '/cors/result.html?%s'
+                );
+            }
+        ]);
+
+        
