@@ -150,6 +150,7 @@ angular.module('assemblyNgApp')
                     }
 
                 };
+                $scope.queue = [];
                 // if (!isOnGitHub) {
                 //     $scope.loadingFiles = true;
                 //     $http.get($scope.uploadUrl)
