@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('assemblyNgApp', ['ngResource', 'ui.bootstrap', 
-  'ngDragDrop', 'ngGrid', 'restangular', 'blueimp.fileupload']);
+  'ngDragDrop', 'ngGrid', 'restangular', 'blueimp.fileupload', 'frapontillo.bootstrap-switch']);
 
 // Routing
 app.config(function ($routeProvider) {
