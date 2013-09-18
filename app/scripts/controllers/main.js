@@ -127,11 +127,9 @@ var arasturl = 'http://140.221.84.203:8000';
 var uploadUrl = ''
 
 angular.module('assemblyNgApp')
-    .controller('DemoFileUploadController', [
+    .controller('ArFileUploadController', [
             '$scope', '$http', '$filter', '$window',
             function ($scope, $http) {
-                console.log('load controller')
-                console.log($scope);
                 $scope.arToken = "un=cbun|tokenid=79e22acc-19bd-11e3-b4d5-1231391ccf32|expiry=1410314733|client_id=cbun|token_type=Bearer|SigningSubject=https://nexus.api.globusonline.org/goauth/keys/7aba18ba-19bd-11e3-b4d5-1231391ccf32|sig=0c77f654dd38869df4d8b32bec99d9e41a98f9e545f17f7b94cb05fdee88b3fd9e9d09cfafaa0020a59198445f54a5cb0aa21dca68d49f774b6b6a1c1a37a9a660abb48401b2934677480aec810dd03a6398a1b4d36d27e0b0b59a54b14a3b0bc662bfae2ebae8e043a35a2cb39b04dafd7a310c381c18d42f332031cf5ff11f";
 
                 $http.get(arasturl + '/shock/').then(function(data){
@@ -143,12 +141,12 @@ angular.module('assemblyNgApp')
                 $scope.options = {
                     url: uploadUrl,
                     headers: {'Authorization': "OAuth " + $scope.arToken},
-                    done: function(data){
-                        console.log(data);
-                        console.log($scope)
-                        //$scope.queue = [];
-                    }
 
+                    // done: function(e, data){
+                    //     console.log(e);
+                    //     console.log(data.result);
+                    //     //$scope.queue = [];
+                    // }
                 };
 
                 $scope.loadingFiles = true;
@@ -162,9 +160,18 @@ angular.module('assemblyNgApp')
                         function () {
                             $scope.loadingFiles = false;
                         }
-                    );
+                        );
+
+
+                $scope.$on('fileuploaddone', function(e, data){ 
+                    //shockObj = 
+                    console.log(data);
+                });
+
 
             }
+
+
         ])
 
         .controller('FileDestroyController', [
