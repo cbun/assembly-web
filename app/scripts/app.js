@@ -15,7 +15,6 @@ app.config(function ($routeProvider) {
       });
   });
 
-
 // CORS support
 app.config(['$httpProvider', function($httpProvider) {
         delete $httpProvider.defaults.headers.common["X-Requested-With"]
@@ -35,10 +34,7 @@ app.config(function(RestangularProvider){
     });
 });
 
-
 //Blueimp
-
-
 app.config(['$httpProvider', 'fileUploadProvider',
             function ($httpProvider, fileUploadProvider) {
                 delete $httpProvider.defaults.headers.common['X-Requested-With'];
