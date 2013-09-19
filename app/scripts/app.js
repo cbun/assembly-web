@@ -10,6 +10,9 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/main.html',
         controller: 'UserFileCtrl'
       })
+      .when('/upload', {
+        templateUrl: 'partials/uploader.html',
+      })
       .otherwise({
         redirectTo: '/'
       });

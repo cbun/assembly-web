@@ -3,7 +3,7 @@
 	<div class="panel-heading" data-drop="true" data-jqyoui-options ng-model="list2" jqyoui-droppable>{{libdata.name}}</div>
 	<!-- TODO: Make this collapsible -->
 	<ul class="list-group">
-		<li class="list-group-item" ng-repeat="file in libdata.files" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="list1" jqyoui-draggable="{animate:true}">{{file.Filename}}</li>
+		<li class="list-group-item" ng-repeat="sObj in libdata.shockObjs" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="list1" jqyoui-draggable="{animate:true}">{{sObj.file.name}}</li>
 
 	</ul>
 </div>
