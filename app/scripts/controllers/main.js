@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('assemblyNgApp')
-  .controller('UserFileCtrl', function ($scope, $resource, Restangular) {
+  .controller('UserFileCtrl', ['$scope', '$resource', 'Restangular', 'arastService',
+    function ($scope, $resource, Restangular, arastService) {
     $scope.stagedFilesFlat = [];
     $scope.stagedLibraries = [];
     $scope.libCount = 0;
@@ -9,7 +10,7 @@ angular.module('assemblyNgApp')
     $scope.userFiles = [];
 
     //Navigation
-    $scope.arStage = 4;
+    $scope.arStage = 1;
     $scope.nextStage = function(){
         $scope.arStage++;
     };
@@ -19,13 +20,13 @@ angular.module('assemblyNgApp')
         $scope.showUpload = !$scope.showUpload;
     };
 
-    $scope.stageFile = function(files){
+    $scope.stageFile = function(shockObjs){
     	//initial files
     	if ($scope.libCount == 0) {
     		$scope.addLibrary();
     	}
     	var lastLib = $scope.stagedLibraries.pop();
-    	lastLib.files = lastLib.files.concat(files);
+    	lastLib.shockObjs = lastLib.shockObjs.concat(shockObjs);
     	$scope.stagedLibraries.push(lastLib);
     };
 
@@ -33,7 +34,7 @@ angular.module('assemblyNgApp')
         $scope.libCount++;
     	var libname = "Library " + $scope.libCount;
     	var newLib = {name: libname,
-    	              files: [],
+    	              shockObjs: [],
                 insert: null,
                 stdev: null};
     	$scope.stagedLibraries.push(newLib);
@@ -41,8 +42,13 @@ angular.module('assemblyNgApp')
 
     //NG Grid for Shock files
     $scope.mySelections = []
-    $scope.gridOptions = { data: "userFiles",
-    selectedItems: $scope.mySelections,
+    $scope.gridOptions = { 
+        data: "userFiles",
+        selectedItems: $scope.mySelections,
+        columnDefs: [
+          {field: "file.name", displayName: 'File Name'},
+          {field: "file.size", displayName: "Size"}
+        ]
 	};
 
 
@@ -60,22 +66,18 @@ angular.module('assemblyNgApp')
 
 //    $scope.removeFromPipeline
 
-    $scope.submitPipeline = function(){
+    $scope.submitJob = function(){
         var arRunRoute = Restangular.one('user', $scope.arUser).one(
             'job', 'new');
         // Build message
-        var data = {"pipeline": $scope.pipeline,
-                "pair": [],
-                "single": []};
         for (var i=0; i < $scope.stagedLibraries.length; i++) {
             var lib = $scope.stagedLibraries[i];
-            if (lib.files.length == 2) {
-                data.pair.push(lib.files);
-            }
-            else {
-                data.single.push(lib.files);
-            }
+            arastService.addLib(lib);
         }
+        arastService.setPipeline($scope.pipeline);
+        console.log(arastService.getArRequest());
+        arastService.submitRequest();
+
     };
 
 
@@ -112,7 +114,8 @@ angular.module('assemblyNgApp')
                 "Authorization": "OAuth " + $scope.arToken
             }).then(function(shockres, error){
                     for (var i=0; i < shockres.length;i++) {
-                        $scope.userFiles.push({'Filename': shockres[i].file.name});
+                        //$scope.userFiles.push({'Filename': shockres[i].file.name});
+                        $scope.userFiles.push(shockres[i]);
                     }
     			});
 
@@ -120,7 +123,7 @@ angular.module('assemblyNgApp')
 
     };
   
-  });
+  }]);
 
 var isOnGitHub = false;
 var arasturl = 'http://140.221.84.203:8000';
@@ -132,6 +135,11 @@ angular.module('assemblyNgApp')
             function ($scope, $http, $filter, $window, arastService) {
                 $scope.arToken = "un=cbun|tokenid=79e22acc-19bd-11e3-b4d5-1231391ccf32|expiry=1410314733|client_id=cbun|token_type=Bearer|SigningSubject=https://nexus.api.globusonline.org/goauth/keys/7aba18ba-19bd-11e3-b4d5-1231391ccf32|sig=0c77f654dd38869df4d8b32bec99d9e41a98f9e545f17f7b94cb05fdee88b3fd9e9d09cfafaa0020a59198445f54a5cb0aa21dca68d49f774b6b6a1c1a37a9a660abb48401b2934677480aec810dd03a6398a1b4d36d27e0b0b59a54b14a3b0bc662bfae2ebae8e043a35a2cb39b04dafd7a310c381c18d42f332031cf5ff11f";
 
+                $scope.autoAssemble = false;
+                $scope.uploadText = "";
+                $scope.$watch('autoAssemble', function(){
+                    $scope.uploadText = $scope.autoAssemble ? "Upload & Assemble" : "Upload";
+                });
                 $http.get(arasturl + '/shock/').then(function(data){
                     $scope.uploadUrl = 'http://' + data.data.shockurl + '/node/';
                 });
@@ -140,7 +148,7 @@ angular.module('assemblyNgApp')
 
                 $scope.options = {
                     url: uploadUrl,
-                    headers: {'Authorization': "OAuth " + $scope.arToken},
+//                    headers: {'Authorization': "OAuth " + $scope.arToken},
 
                     // done: function(e, data){
                     //     console.log(e);
@@ -164,11 +172,17 @@ angular.module('assemblyNgApp')
 
 
                 $scope.$on('fileuploaddone', function(e, data){ 
+                    console.log('done');
                     var shockNode = data.result.data;
+                    console.log(shockNode)
                     arastService.addSingle(shockNode);
                     console.log(arastService.getArRequest());
-
+                    if ($scope.autoAssemble) {
+                        arastService.submitRequest();
+                        console.log("submitted");
+                    }
                 });
+
 
 
             }
