@@ -1,0 +1,20 @@
+<div class="col-md-4">
+	<h1>Computation</h1>
+	<button class="row big-button btn btn-lg btn-block btn-success" tooltip="{{tooltipQuick}}" tooltip-trigger="mouseenter" >
+		<h3><i class="glyphicon glyphicon-flash"></i> Quick Assembly</h3>
+		<small>Quickly upload reads and assemble</small>		
+	</button>
+
+	<button class="row big-button btn btn-lg btn-block btn-info" tooltip="{{tooltipCustom}}" tooltip-trigger="mouseenter" >
+		<h3><i class="glyphicon glyphicon-cog"></i> Custom Assembly</h3>
+		<small>Customize libraries and pipeline</small>		
+	</button>
+	<button class="row big-button btn btn-lg btn-block btn-warning" tooltip="{{tooltipAnalyze}}" tooltip-trigger="mouseenter" >
+		<h3><i class="glyphicon glyphicon-eye-open"></i> Analyze Assemblies</h3>
+		<small>Perform analysis on contigs</small>		
+	</button>
+</div>
+
+<div class="col-md-8" ng-include=" 'partials/statusAll.html' " ng-controller="ArStatusCtrl">
+	
+</div>
