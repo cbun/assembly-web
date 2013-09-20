@@ -10,8 +10,12 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/main.html',
         controller: 'UserFileCtrl'
       })
-      .when('/upload', {
-        templateUrl: 'partials/uploader.html',
+      .when('/dashboard', {
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashboardCtrl'
+      })
+      .when('/status', {
+        templateUrl: 'partials/statusAll.html',
       })
       .otherwise({
         redirectTo: '/'

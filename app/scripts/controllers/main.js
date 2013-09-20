@@ -223,3 +223,32 @@ angular.module('assemblyNgApp')
                 }
             }
         ]);
+
+
+angular.module('assemblyNgApp')
+    .controller('ArStatusCtrl', [
+            '$scope', 'arastRestService',
+            function ($scope, arastRestService) {
+                $scope.userDocs = arastRestService.getStatusAll();
+                //NG Grid for Shock files
+                $scope.mySelections = []
+                $scope.gridOptions = { 
+                    data: "userDocs",
+                    selectedItems: $scope.mySelections,
+                    multiSelect: false,
+                    columnDefs: [
+                    {field: "job_id", displayName: 'Job'},
+                    {field: "status", displayName: "Status"},
+                    {field: "message", displayName: "Description"}
+                    ]
+    };
+    }]);
+
+angular.module('assemblyNgApp')
+    .controller('DashboardCtrl', [
+            '$scope',
+            function ($scope) {
+                $scope.tooltipQuick = 'This is the description for the tooltip';
+                $scope.tooltipCustom = 'This is the description for the tooltip';
+                $scope.tooltipAnalyze = 'This is the description for the tooltip';
+    }]);

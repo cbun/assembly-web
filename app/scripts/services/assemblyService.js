@@ -57,7 +57,7 @@ angular.module('assemblyNgApp').
 					var i;
 					arRequest.pipeline = [];
 					for (i=0;i<pipeline.length;i++){
-						arRequest.pipeline.push(pipeline[i].name)
+						arRequest.pipeline.push(pipeline[i].name);
 					}
 				},
 				submitRequest: function() {
@@ -87,3 +87,18 @@ angular.module('assemblyNgApp').
 			}
 		};
 	});
+
+angular.module('assemblyNgApp').
+	factory('arastRestService', ['arastSessionService', 'Restangular', 
+		function(arastSessionService, Restangular){
+			var user = arastSessionService.getUser();
+			var token = arastSessionService.getToken();
+			var userRoute = Restangular.one('user', user).one('job', 'status');
+			return{
+				getStatusAll: function() {
+					return userRoute.get()
+				}
+			}
+
+	}]);
+
