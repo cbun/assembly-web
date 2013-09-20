@@ -237,7 +237,7 @@ angular.module('assemblyNgApp')
                     selectedItems: $scope.mySelections,
                     multiSelect: false,
                     columnDefs: [
-                    {field: "job_id", displayName: 'Job'},
+                    {field: "job_id", displayName: 'Job', width: 100},
                     {field: "status", displayName: "Status"},
                     {field: "message", displayName: "Description"}
                     ]
@@ -248,6 +248,7 @@ angular.module('assemblyNgApp')
     .controller('DashboardCtrl', [
             '$scope',
             function ($scope) {
+                $scope.dashView = "status";
                 $scope.tooltipQuick = 'This is the description for the tooltip';
                 $scope.tooltipCustom = 'This is the description for the tooltip';
                 $scope.tooltipAnalyze = 'This is the description for the tooltip';

@@ -13,8 +13,16 @@
 		<h3><i class="glyphicon glyphicon-eye-open"></i> Analyze Assemblies</h3>
 		<small>Perform analysis on contigs</small>		
 	</button>
+
+	<ul class="nav nav-pills nav-stacked big-button">
+		<li class="active" ng-click="dashView='status'"><a href="">Job Status <i class="glyphicon glyphicon-chevron-right pull-right"></i></a></li>
+		<li ng-click="dashView='files'"><a href="">My Files <i class="glyphicon glyphicon-chevron-right pull-right"></i></a></li>
+		<li ng-click="dashView='messages'"><a href="">Messages <i class="glyphicon glyphicon-chevron-right pull-right"></i></a></li>
+	</ul>
 </div>
 
-<div class="col-md-8" ng-include=" 'partials/statusAll.html' " ng-controller="ArStatusCtrl">
+<div class="col-md-8" ng-switch on="dashView"> 
+	<div ng-switch-when="status" ng-include=" 'partials/statusAll.html' " ng-controller="ArStatusCtrl"></div>
+
 	
 </div>
