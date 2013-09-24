@@ -1,8 +1,13 @@
 'use strict';
 
 angular.module('assemblyNgApp')
-  .controller('UserFileCtrl', ['$scope', '$resource', 'Restangular', 'arastService',
-    function ($scope, $resource, Restangular, arastService) {
+  .controller('UserFileCtrl', ['$scope', '$resource', 'Restangular', 'arastService', 'kbaseSessionService',
+    function ($scope, $resource, Restangular, arastService, kbaseSessionService) {
+        // Init
+
+    if (!kbaseSessionService.isLoggedIn()){
+        console.log("not logged in");
+    }
     $scope.stagedFilesFlat = [];
     $scope.stagedLibraries = [];
     $scope.libCount = 0;
@@ -83,8 +88,8 @@ angular.module('assemblyNgApp')
 
     $scope.pipeline = [];
     $scope.arServerUrl = "140.221.84.203";
-    $scope.arUser = "cbun";
-    $scope.arToken = "un=cbun|tokenid=79e22acc-19bd-11e3-b4d5-1231391ccf32|expiry=1410314733|client_id=cbun|token_type=Bearer|SigningSubject=https://nexus.api.globusonline.org/goauth/keys/7aba18ba-19bd-11e3-b4d5-1231391ccf32|sig=0c77f654dd38869df4d8b32bec99d9e41a98f9e545f17f7b94cb05fdee88b3fd9e9d09cfafaa0020a59198445f54a5cb0aa21dca68d49f774b6b6a1c1a37a9a660abb48401b2934677480aec810dd03a6398a1b4d36d27e0b0b59a54b14a3b0bc662bfae2ebae8e043a35a2cb39b04dafd7a310c381c18d42f332031cf5ff11f";
+    //$scope.arUser = "cbun";
+    //$scope.arToken = "un=cbun|tokenid=79e22acc-19bd-11e3-b4d5-1231391ccf32|expiry=1410314733|client_id=cbun|token_type=Bearer|SigningSubject=https://nexus.api.globusonline.org/goauth/keys/7aba18ba-19bd-11e3-b4d5-1231391ccf32|sig=0c77f654dd38869df4d8b32bec99d9e41a98f9e545f17f7b94cb05fdee88b3fd9e9d09cfafaa0020a59198445f54a5cb0aa21dca68d49f774b6b6a1c1a37a9a660abb48401b2934677480aec810dd03a6398a1b4d36d27e0b0b59a54b14a3b0bc662bfae2ebae8e043a35a2cb39b04dafd7a310c381c18d42f332031cf5ff11f";
 
 
     var userroute = Restangular.one('user', $scope.arUser);
@@ -245,11 +250,46 @@ angular.module('assemblyNgApp')
     }]);
 
 angular.module('assemblyNgApp')
-    .controller('DashboardCtrl', [
-            '$scope',
-            function ($scope) {
-                $scope.dashView = "status";
+    .controller('DashboardCtrl', ['$scope', 'kbaseSessionService',
+            function ($scope, kbaseSessionService) {
+                $scope.dashView = 'status';
                 $scope.tooltipQuick = 'This is the description for the tooltip';
                 $scope.tooltipCustom = 'This is the description for the tooltip';
                 $scope.tooltipAnalyze = 'This is the description for the tooltip';
+    }]);
+
+angular.module('assemblyNgApp')
+    .controller('MainCtrl', ['$scope', '$location', 
+                             'kbaseSessionService', 'webStorage',
+            function ($scope, $location, kbaseSessionService, webStorage) {
+                $scope.loggedIn = kbaseSessionService.isLoggedIn();
+                // Check if user is logged in
+                var currentLocation = $location.path();
+                $scope.$on("$routeChangeStart", 
+                    function (event, nextRoute) {
+                        if (!nextRoute.access.isFree && !kbaseSessionService.isLoggedIn()) {
+                            var session = webStorage.session.get('kbase_session');
+                            if (session != undefined){ // Session info exists
+                                kbaseSessionService.setLoggedIn(session.user_id, session.token);
+                                $scope.loggedIn = kbaseSessionService.isLoggedIn();
+                                $location.path(currentLocation);
+                            }else{
+                                $scope.loggedIn = kbaseSessionService.isLoggedIn();
+                                $location.path('/login');
+                            }
+                        }
+                });
+
+//                $scope.logOut = 
+
+
+}]);
+
+
+angular.module('assemblyNgApp')
+    .controller('LoginCtrl', ['$scope', 'kbaseSessionService',
+            function ($scope, kbaseSessionService) {
+                $scope.setLoggedIn = function(user, token) {
+                    kbaseSessionService.setLoggedIn(user, token);
+                };
     }]);

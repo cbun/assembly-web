@@ -1,35 +1,54 @@
 'use strict';
 
-var app = angular.module('assemblyNgApp', ['ngResource', 'ui.bootstrap', 
-  'ngDragDrop', 'ngGrid', 'restangular', 'blueimp.fileupload', 'frapontillo.bootstrap-switch']);
+var app = angular.module('assemblyNgApp', ['ngResource', 'ngCookies', 'ui.bootstrap', 
+  'ngDragDrop', 'ngGrid', 'restangular', 'webStorageModule', 'blueimp.fileupload', 'frapontillo.bootstrap-switch']);
 
 // Routing
 app.config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'UserFileCtrl'
+        controller: 'UserFileCtrl',
+        access: {
+          isFree: false
+        }
       })
       .when('/dashboard', {
         templateUrl: 'views/dashboard.html',
-        controller: 'DashboardCtrl'
+        controller: 'DashboardCtrl',
+        access: {
+          isFree: false
+        }
+
       })
       .when('/status', {
         templateUrl: 'partials/statusAll.html',
+        access: {
+          isFree: false
+        }
+      })
+      .when('/login', {
+        templateUrl: 'partials/login.html',
+        access: {
+          isFree: true
+        }
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/dashboard'
       });
   });
 
 // CORS support
 app.config(['$httpProvider', function($httpProvider) {
-        delete $httpProvider.defaults.headers.common["X-Requested-With"]
+        delete $httpProvider.defaults.headers.common["X-Requested-With"];
+        delete $httpProvider.defaults.headers.common["Origin"];
+        console.log($httpProvider.defaults.headers.common);
       }]);
 
 // Restangular config
 app.config(function(RestangularProvider){
   RestangularProvider.setBaseUrl("http://140.221.84.203:8000/");
+  RestangularProvider.setDefaultHeaders();
 
   RestangularProvider.setResponseExtractor(function(response, operation, what, url) {
         // Extract data objects from shock node
