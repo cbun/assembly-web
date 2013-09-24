@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('assemblyNgApp').
-	factory('arastService', ['Restangular', 'arastSessionService',
-		function(Restangular, arastSessionService) {
-			var user = arastSessionService.getUser();
-			var token = arastSessionService.getToken();
+	factory('arastService', ['Restangular', 'kbaseSessionService',
+		function(Restangular, kbaseSessionService) {
+			var user = kbaseSessionService.getUser();
+			var token = kbaseSessionService.getToken();
 			var arRequest = {
 //				"ARASTUSER": user,
 				"data_id": null, 
@@ -74,25 +74,13 @@ angular.module('assemblyNgApp').
 		}]);
 
 
-angular.module('assemblyNgApp').
-	factory('arastSessionService', function(){
-		var arToken = "un=cbun|tokenid=87952b90-20ae-11e3-9f82-12313d2d6e7f|expiry=1411077972|client_id=cbun|token_type=Bearer|SigningSubject=https://nexus.api.globusonline.org/goauth/keys/87b98f58-20ae-11e3-9f82-12313d2d6e7f|sig=d3a9596bd298f79466406e94a5fa5c934e6a6a646b596c4ee395689059d71c0cd1bd6f9b827709f0d444708913d8644d039bb4385d7f542f719ff4a9564ac6ca6e18266611fe61a1c3c4518416177f67f7897c7765a6def60fd22ab02acfe92d67cdcc12568327968ce13473f56dc9b5c67f53b9e027a1f6da2213409ddf47d9";
-		var arUser = "cbun";
-		return {
-			getUser: function(){
-				return arUser;
-			},
-			getToken: function(){
-				return arToken;
-			}
-		};
-	});
+
 
 angular.module('assemblyNgApp').
-	factory('arastRestService', ['arastSessionService', 'Restangular', 
-		function(arastSessionService, Restangular){
-			var user = arastSessionService.getUser();
-			var token = arastSessionService.getToken();
+	factory('arastRestService', ['kbaseSessionService', 'Restangular', 
+		function(kbaseSessionService, Restangular){
+			var user = kbaseSessionService.getUser();
+			var token = kbaseSessionService.getToken();
 			var userRoute = Restangular.one('user', user).one('job', 'status');
 			return{
 				getStatusAll: function() {
@@ -101,4 +89,6 @@ angular.module('assemblyNgApp').
 			}
 
 	}]);
+
+
 

@@ -54,3 +54,9 @@ body {
 .big-button {
     margin: 6px;
 }
+
+.modal {
+display: block;
+height: 200;
+overflow: visible;
+}

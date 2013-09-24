@@ -13,6 +13,7 @@
 
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="components/bootstrap3/css/bootstrap.flatly.min.css">
+        <!-- <link rel="stylesheet" href="styles/bootstrap.css"> -->
         <link rel="stylesheet" href="bower_components/ng-grid/ng-grid.css">
         <link rel="stylesheet" href="styles/main.css">
         <link rel="stylesheet" href="bower_components/bootstrap-switch/static/stylesheets/bootstrap-switch.css">
@@ -29,7 +30,10 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
+
     <!-- Add your site or application content here -->
+    <div ng-controller="MainCtrl">
+      {{loggedIn}}
      <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -45,19 +49,23 @@
             <li class=""><a href="#">Home</a></li>
             <li><a href="#/upload/">Upload</a></li>
             <li><a href="#/dashboard">Dashboard</a></li>
+            <li><a href="#/dashboard" ng-show="loggedIn">Logout</a></li>
           </ul>
         
         </div><!--/.nav-collapse -->
       </div>
     </div>
 
-
+<div checkUser></div>
     <div class="container" ng-view=""></div>
+
+
+</div>
 
     <script src="bower_components/jquery/jquery.js"></script>
     <script src='bower_components/jquery-ui/ui/jquery-ui.js'></script>
-    <script src="bower_components/angular-unstable/angular.js"></script>
-    
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="components/bootstrap3/js/bootstrap.js"></script>    
     <!-- Blueimp Uploader -->
 <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
 <script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.min.js"></script>
@@ -87,14 +95,15 @@
 
 
 
+
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/ng-grid/ng-grid-2.0.7.debug.js"></script>
     <script src="bower_components/angular-dragdrop/src/angular-dragdrop.js"></script>
     <script src="bower_components/blueimp-file-upload/js/jquery.fileupload-angular.js"></script>
-
+    <script src="bower_components/angular-webstorage/angular-webstorage.js"></script>
     <script src="bower_components/lodash/dist/lodash.underscore.js"></script>
     <script src="bower_components/restangular/src/restangular.js"></script>
-    <script src="components/bootstrap3/js/bootstrap.js"></script>
+
 
         <!-- build:js scripts/modules.js -->
         <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -103,14 +112,21 @@
         <script src="bower_components/bootstrap-switch/static/js/bootstrap-switch.js"></script>
         <script src="bower_components/angular-bootstrap-switch/dist/angular-bootstrap-switch.js"></script>
 
+
+
         <!-- endbuild -->
+        <script src="components/kbase/ui-common/kbwidget.js"></script>
+        <script src="components/kbase/ui-common/kbasePrompt.js"></script>
+        <script src="components/kbase/ui-common/kbaseLogin.js"></script>                
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/kbase.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/uploadCtrl.js"></script> 
-        <script src="scripts/directives/files.js"></script>
+        <script src="scripts/directives/directives.js"></script>
         <script src="scripts/services/assemblyService.js"></script>
+
         <!-- endbuild -->
 </body>
 </html>
