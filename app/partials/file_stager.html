@@ -6,18 +6,24 @@
 	</div>
 	<div class="col-md-6 well">
 		<div id="staged" class="user-staged-files">
-			<div class="panel panel-primary">
+			<div class="panel panel-primary" ng-show="stagedLibraries.length > 0">
 				<div class="panel-heading">
 					<div class="h3 panel-title">Staged Files</div>
 				</div>
-			</div>
-			<div class="panel-body">
+			
+			<div class="panel-body" >
 				<div ng-repeat="lib in stagedLibraries">
 					<ar-lib libdata=lib></ar-lib>
 				</div>
 				<div class="btn btn-warning btn-sm" ng-click="addLibrary()" ng-show="stagedLibraries.length > 0"><span class="glyphicon glyphicon-plus-sign"></span>  New Library
 				</div>
+				</div>
+				
 			</div>
+			<div class="greyed" ng-show="stagedLibraries.length == 0">
+					<p>No Libraries Staged</p>
+					<p><i class="greylg glyphicon glyphicon-plus-sign"></i></p>
+				</div>
 		</div>
 	</div>
 	</div>

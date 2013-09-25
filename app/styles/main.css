@@ -79,3 +79,15 @@ display: block;
 height: 200;
 overflow: visible;
 }
+
+.greyed{
+    padding-top: 50px;
+    text-align: center;
+    color: #D8D8D8;
+    font-size: 300%;
+}
+.greylg{
+    text-align: center;
+    color: #D8D8D8;
+    font-size: 400%;
+}
