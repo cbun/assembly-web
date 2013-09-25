@@ -5,9 +5,8 @@ angular.module('assemblyNgApp')
     function ($scope, $resource, Restangular, arastService, kbaseSessionService) {
         // Init
 
-    if (!kbaseSessionService.isLoggedIn()){
-        console.log("not logged in");
-    }
+    $scope.arUser = kbaseSessionService.getUser();
+    $scope.arToken = kbaseSessionService.getToken();
     $scope.stagedFilesFlat = [];
     $scope.stagedLibraries = [];
     $scope.libCount = 0;
@@ -264,10 +263,12 @@ angular.module('assemblyNgApp')
             function ($scope, $location, $route, kbaseSessionService, webStorage) {
                 // Check if user is logged in
                 $scope.loggedIn = kbaseSessionService.isLoggedIn();
+                $scope.arUser = kbaseSessionService.getUser();
                 if (!$scope.loggedIn) {
                     if (kbaseSessionService.checkSession()){ // Has previous session
                         console.log('has previous session. proceed')
                         $scope.loggedIn = kbaseSessionService.isLoggedIn();
+                        $scope.arUser = kbaseSessionService.getUser();
                     }
                 }
 
@@ -275,6 +276,7 @@ angular.module('assemblyNgApp')
                 $scope.$on("$routeChangeStart", 
                     function (event, nextRoute) {
                         $scope.loggedIn = kbaseSessionService.isLoggedIn();
+                        $scope.arUser = kbaseSessionService.getUser();
                         var nextLocation = $location.path();
                         if (!nextRoute.access.isFree && !$scope.loggedIn) {
                                 var loginRoute = "/login" + nextLocation;
