@@ -6,13 +6,13 @@ var app = angular.module('assemblyNgApp', ['ngResource', 'ngCookies', 'ui.bootst
 // Routing
 app.config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/dashboard.html',
-        controller: 'DashboardCtrl',
-        access: {
-          isFree: false
-        }
-      })
+      // .when('/', {
+      //   templateUrl: 'views/dashboard.html',
+      //   controller: 'DashboardCtrl',
+      //   access: {
+      //     isFree: false
+      //   }
+      // })
       .when('/dashboard', {
         name: "dashboard",
         templateUrl: 'views/dashboard.html',
