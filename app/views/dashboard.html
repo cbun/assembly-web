@@ -1,11 +1,11 @@
 <div class="col-md-4">
 	<h1>Computation</h1>
-	<button class="row big-button btn btn-lg btn-block btn-success" tooltip="{{tooltipQuick}}" tooltip-trigger="mouseenter" >
+	<button class="row big-button btn btn-lg btn-block btn-success" tooltip="{{tooltipQuick}}" tooltip-trigger="mouseenter" ng-click="clickQuick()" >
 		<h3><i class="glyphicon glyphicon-flash"></i> Quick Assembly</h3>
 		<small>Quickly upload reads and assemble</small>		
 	</button>
 
-	<button class="row big-button btn btn-lg btn-block btn-info" tooltip="{{tooltipCustom}}" tooltip-trigger="mouseenter" >
+	<button class="row big-button btn btn-lg btn-block btn-info" tooltip="{{tooltipCustom}}" tooltip-trigger="mouseenter" ng-click="clickCustom()">
 		<h3><i class="glyphicon glyphicon-cog"></i> Custom Assembly</h3>
 		<small>Customize libraries and pipeline</small>		
 	</button>
@@ -23,6 +23,7 @@
 
 <div class="col-md-8" ng-switch on="dashView"> 
 	<div ng-switch-when="status" ng-include=" 'partials/statusAll.html' " ng-controller="ArStatusCtrl"></div>
+	<div ng-switch-when="files" ng-include=" 'partials/userFiles.html' " ng-controller="UserFileCtrl" data-ng-init="listUserFiles()"></div>
 
-	
+
 </div>
