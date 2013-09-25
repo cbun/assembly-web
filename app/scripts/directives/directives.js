@@ -15,13 +15,13 @@ app.directive("arLib", function() {
 app.directive('arLogin', function() {
     return {
         restrict: 'A',
+        controller: 'LoginCtrl',
         link: function(scope, element, attrs) {
-            $(element).kbaseLogin({style: 'button',
+            $(element).kbaseLogin({style: 'slim',
             	login_callback: function() {
-            		console.log('logged in!');
             		var user = $(element).kbaseLogin('session', 'user_id');
             		var token = $(element).kbaseLogin('session').token;
-            		scope.setLoggedIn(user, token)
+            		scope.setLoggedIn(user, token);
             	}});
         }
     };

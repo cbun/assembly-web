@@ -259,37 +259,57 @@ angular.module('assemblyNgApp')
     }]);
 
 angular.module('assemblyNgApp')
-    .controller('MainCtrl', ['$scope', '$location', 
+    .controller('MainCtrl', ['$scope', '$location', '$route',
                              'kbaseSessionService', 'webStorage',
-            function ($scope, $location, kbaseSessionService, webStorage) {
-                $scope.loggedIn = kbaseSessionService.isLoggedIn();
+            function ($scope, $location, $route, kbaseSessionService, webStorage) {
                 // Check if user is logged in
+                $scope.loggedIn = kbaseSessionService.isLoggedIn();
                 var currentLocation = $location.path();
                 $scope.$on("$routeChangeStart", 
                     function (event, nextRoute) {
+                        var nextLocation = $location.path();
                         if (!nextRoute.access.isFree && !kbaseSessionService.isLoggedIn()) {
-                            var session = webStorage.session.get('kbase_session');
-                            if (session != undefined){ // Session info exists
-                                kbaseSessionService.setLoggedIn(session.user_id, session.token);
+                            if (kbaseSessionService.checkSession()){ // Has previous session
+                                console.log('has previous session. proceed')
                                 $scope.loggedIn = kbaseSessionService.isLoggedIn();
-                                $location.path(currentLocation);
-                            }else{
+                                //$location.path(nextRoute);
+                            }else { // No session, route to login
                                 $scope.loggedIn = kbaseSessionService.isLoggedIn();
-                                $location.path('/login');
+                                var loginRoute = "/login" + nextLocation;
+                                console.log(loginRoute);
+                                $location.path(loginRoute);
                             }
+                        } else {
+                            console.log("either logged, or access free");
                         }
                 });
 
-//                $scope.logOut = 
+                $scope.logOut = function(){
+                    kbaseSessionService.clearSession();
+                    $route.reload();
+                };
+
+
 
 
 }]);
 
 
 angular.module('assemblyNgApp')
-    .controller('LoginCtrl', ['$scope', 'kbaseSessionService',
-            function ($scope, kbaseSessionService) {
+    .controller('LoginCtrl', ['$scope', '$location', '$route', '$routeParams', 'kbaseSessionService',
+            function ($scope, $location, $route, $routeParams, kbaseSessionService) {
+                $scope.redirect = $routeParams.redirect;
+                $scope.loggedIn = false;
+                $scope.$location = $location;
+                console.log($scope.redirect);
+
                 $scope.setLoggedIn = function(user, token) {
+                    console.log('Redirecting!' + $scope.redirect);
                     kbaseSessionService.setLoggedIn(user, token);
+                    $location.path("/" + $scope.redirect + "/");
+                    $scope.$apply();
+
+
+
                 };
     }]);
