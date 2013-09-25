@@ -11,17 +11,13 @@ angular.module('assemblyNgApp')
     $scope.stagedLibraries = [];
     $scope.libCount = 0;
     $scope.shockUrl = "";
+    $scope.showPublicFiles = true;
     $scope.userFiles = [];
 
     //Navigation
     $scope.arStage = 1;
     $scope.nextStage = function(){
         $scope.arStage++;
-    };
-
-    $scope.showUpload = false;
-    $scope.toggleUpload = function(){
-        $scope.showUpload = !$scope.showUpload;
     };
 
     $scope.stageFile = function(shockObjs){
@@ -71,7 +67,7 @@ angular.module('assemblyNgApp')
 //    $scope.removeFromPipeline
 
     $scope.submitJob = function(){
-        var arRunRoute = Restangular.one('user', $scope.arUser).one(
+        var arRunRoute = Restangular.one('user', kbaseSessionService.getUser()).one(
             'job', 'new');
         // Build message
         for (var i=0; i < $scope.stagedLibraries.length; i++) {
@@ -87,11 +83,9 @@ angular.module('assemblyNgApp')
 
     $scope.pipeline = [];
     $scope.arServerUrl = "140.221.84.203";
-    //$scope.arUser = "cbun";
-    //$scope.arToken = "un=cbun|tokenid=79e22acc-19bd-11e3-b4d5-1231391ccf32|expiry=1410314733|client_id=cbun|token_type=Bearer|SigningSubject=https://nexus.api.globusonline.org/goauth/keys/7aba18ba-19bd-11e3-b4d5-1231391ccf32|sig=0c77f654dd38869df4d8b32bec99d9e41a98f9e545f17f7b94cb05fdee88b3fd9e9d09cfafaa0020a59198445f54a5cb0aa21dca68d49f774b6b6a1c1a37a9a660abb48401b2934677480aec810dd03a6398a1b4d36d27e0b0b59a54b14a3b0bc662bfae2ebae8e043a35a2cb39b04dafd7a310c381c18d42f332031cf5ff11f";
 
 
-    var userroute = Restangular.one('user', $scope.arUser);
+    var userroute = Restangular.one('user', kbaseSessionService.getUser());
     $scope.returnMsg = userroute.getList('files');
 
     $scope.getShockUrl = function(){
@@ -102,8 +96,23 @@ angular.module('assemblyNgApp')
     	});
     };
 
+    $scope.switchFileList = function(showPublic){
+        if (showPublic) {
+            $scope.showPublicFiles = true;
+        } else {
+            $scope.showPublicFiles = false;
+        }
+        $scope.listUserFiles();
+    }
+
     $scope.listUserFiles = function(){
     	var shockCall = Restangular.one('shock/').getList();
+        $scope.userFiles = [];
+        var headers = {};
+        if ($scope.showPublicFiles){
+            headers = {"Authorization": "OAuth " + $scope.arToken};
+        }
+
     	shockCall.then(function(data){
     		return data.shockurl;
     	}).then(function(msg) {
@@ -111,8 +120,8 @@ angular.module('assemblyNgApp')
     		console.log(shockreq);
             var shockobj = Restangular.oneUrl('', shockreq);
     		shockobj.getList('node',{}, 
-                //{"Authorization": "OAuth " + $scope.arToken}
-                {}
+                //
+                headers
                 ).then(function(shockres, error){
                     for (var i=0; i < shockres.length;i++) {
                         //$scope.userFiles.push({'Filename': shockres[i].file.name});
@@ -230,6 +239,7 @@ angular.module('assemblyNgApp')
             '$scope', 'arastRestService',
             function ($scope, arastRestService) {
                 $scope.userDocs = arastRestService.getStatusAll();
+
                 //NG Grid for Shock files
                 $scope.mySelections = []
                 $scope.gridOptions = { 
