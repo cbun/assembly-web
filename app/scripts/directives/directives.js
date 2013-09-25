@@ -17,7 +17,7 @@ app.directive('arLogin', function() {
         restrict: 'A',
         controller: 'LoginCtrl',
         link: function(scope, element, attrs) {
-            $(element).kbaseLogin({style: 'slim',
+            $(element).kbaseLogin({style: 'button',
             	login_callback: function() {
             		var user = $(element).kbaseLogin('session', 'user_id');
             		var token = $(element).kbaseLogin('session').token;
