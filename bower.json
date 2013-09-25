@@ -17,7 +17,8 @@
     "blueimp-file-upload": "~8.8.5",
     "angular-unstable": "~1.1.5",
     "requirejs-jquery": "~0.25.0",
-    "angular-webstorage": "~0.9.3"
+    "angular-webstorage": "~0.9.3",
+    "bootstrap-switch": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.7",
