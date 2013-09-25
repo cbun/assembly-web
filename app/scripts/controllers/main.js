@@ -247,7 +247,7 @@ angular.module('assemblyNgApp')
 angular.module('assemblyNgApp')
     .controller('DashboardCtrl', ['$scope', '$location', 'kbaseSessionService',
             function ($scope, $location, kbaseSessionService) {
-                $scope.dashView = 'files';
+                $scope.dashView = 'status';
                 $scope.tooltipQuick = 'Instantly perform automated assembly upon file uploads';
                 $scope.tooltipCustom = 'Select libraries and create an assembly pipeline manually';
                 $scope.tooltipAnalyze = 'Perform analysis methods on assemblies';
@@ -293,9 +293,17 @@ angular.module('assemblyNgApp')
                         }
                 });
 
+                $scope.logIn = function(){
+                    $location.path('/login/');
+                };
+
                 $scope.logOut = function(){
                     kbaseSessionService.clearSession();
                     $route.reload();
+                };
+
+                $scope.gotoDash= function(){
+                    $location.path('/dashboard/');
                 };
 
 }]);

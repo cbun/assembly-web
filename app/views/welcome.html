@@ -2,6 +2,8 @@
 	<div class="jumbotron">
 		<h1>AssemblyRAST</h1>
 		<p class="lead">Rapid de novo genome assembly, analysis, and discovery</p>
-<button class="btn btn-lg btn-primary">Assemble</button>
+		<button class="btn btn-lg btn-info">Tour</button>
+		<button class="btn btn-lg btn-warning" ng-show="loggedIn" ng-click="gotoDash()">Start</button>
+		<button class="btn btn-lg btn-warning" ng-show="!loggedIn" ng-click="logIn()">Login</button>
 	</div>
 </div>
