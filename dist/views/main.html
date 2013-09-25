@@ -1,0 +1,14 @@
+<html ng-controller="UserFileCtrl">
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<div class="animate-switch-container container" ng-switch="" on="arStage"> 
+		<div ng-switch-when="1" ng-include="'partials/file_stager.html'" data-ng-init="listUserFiles()"></div>
+		<div ng-switch-when="2" ng-include="'partials/pipeline_builder.html'" data-ng-init="getArModules()"></div>
+		<div ng-switch-when="3" ng-include="'partials/finalize.html'" data-ng-init="getArModules()"></div>
+		<div ng-switch-when="4" ng-include="'partials/login.html'"></div>
+	</div>
+
+	</body>
+</html>
