@@ -49,7 +49,12 @@
             <li class=""><a href="#">Home</a></li>
             <li><a href="#/upload/">Upload</a></li>
             <li><a href="#/dashboard">Dashboard</a></li>
-            <li><a href="#/" ng-click="logOut()" ng-show="loggedIn">Logout</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" href="#/"  ng-show="loggedIn"><i class="glyphicon glyphicon-user"></i> {{arUser}}</a>
+              <ul class="dropdown-menu">
+                <li><a href="#/" ng-click="logOut()">Log Out</a></li>
+              </ul>
+            </li>
           </ul>
         
         </div><!--/.nav-collapse -->
