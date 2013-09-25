@@ -81,13 +81,30 @@ angular.module('assemblyNgApp').
 		function(kbaseSessionService, Restangular){
 			var user = kbaseSessionService.getUser();
 			var token = kbaseSessionService.getToken();
-			var userRoute = Restangular.one('user', user).one('job', 'status');
+
+			// Routes
+			var userStatusRoute = Restangular.one('user', user).one('job', 'status');
+			var shockRoute = Restangular.one('shock/')
+			// Storage
+			var statusAll; 
+			var shockUrl;
 			return{
-				getStatusAll: function() {
-					return userRoute.get()
+				getStatusAll: function(doRefresh) {
+					console.log('get status');
+					if (statusAll == undefined || doRefresh){
+						console.log('Retrieving latest status');
+						userStatusRoute.get().then(function(data){
+							statusAll = data;
+							console.log(statusAll);
+							return statusAll;
+						})
+					}
+					return statusAll;
+				},
+				getFiles: function(user) {
+
 				}
 			}
-
 	}]);
 
 

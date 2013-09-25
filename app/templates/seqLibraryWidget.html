@@ -1,13 +1,13 @@
 <div class="ar-panel">
 <div class="panel panel-warning">
-	<div class="panel-heading" data-drop="true" data-jqyoui-options ng-model="list2" jqyoui-droppable>{{libdata.name}}</div>
+	<div class="panel-heading" data-drop="true" data-jqyoui-options ng-model="list2" jqyoui-droppable>{{libdata.name}} <button type="button" class="pull-right close" aria-hidden="true"><i class="glyphicon glyphicon-remove-circle"></i></button></div>
 	<!-- TODO: Make this collapsible -->
 	<ul class="list-group">
 		<li class="list-group-item" ng-repeat="sObj in libdata.shockObjs" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="list1" jqyoui-draggable="{animate:true}">{{sObj.file.name}}</li>
 
 	</ul>
 </div>
-<div class="row">
+<div class="row ar-lib-params">
 	<div class="col-md-6">
 		<div class="input-group" >
 			<span class="input-group-addon">Ins</span>

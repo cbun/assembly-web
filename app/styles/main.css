@@ -54,6 +54,7 @@ h1,h2,h3{
     height:800px;
 }
 
+
 .ar-pipeline-box {
     height: 400px;
 }
@@ -91,3 +92,7 @@ overflow: visible;
     color: #D8D8D8;
     font-size: 400%;
 }
+
+ [ng\:cloak], [ng-cloak], .ng-cloak {
+    display: none !important;
+  }

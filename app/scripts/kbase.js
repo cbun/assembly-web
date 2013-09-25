@@ -1,10 +1,5 @@
 'use strict';
 
-// (function() {
-// 	$('#signin').kbaseLogin();
-// 	}(jQuery));
-
-
 app.factory('kbaseSessionService', ['webStorage',
 		function(webStorage){
 			var isLoggedIn = false;	
@@ -18,10 +13,9 @@ app.factory('kbaseSessionService', ['webStorage',
                     	console.log('exists!');
                     	this.setLoggedIn(session.user_id, session.token);
                     	return true;
-                    } else{
+                    } else {
                     	return false;
                     }
-
 				},
 				clearSession: function(){
 					webStorage.session.clear();
