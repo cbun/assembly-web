@@ -264,23 +264,25 @@ angular.module('assemblyNgApp')
             function ($scope, $location, $route, kbaseSessionService, webStorage) {
                 // Check if user is logged in
                 $scope.loggedIn = kbaseSessionService.isLoggedIn();
+                if (!$scope.loggedIn) {
+                    if (kbaseSessionService.checkSession()){ // Has previous session
+                        console.log('has previous session. proceed')
+                        $scope.loggedIn = kbaseSessionService.isLoggedIn();
+                    }
+                }
+
                 var currentLocation = $location.path();
                 $scope.$on("$routeChangeStart", 
                     function (event, nextRoute) {
+                        $scope.loggedIn = kbaseSessionService.isLoggedIn();
                         var nextLocation = $location.path();
-                        if (!nextRoute.access.isFree && !kbaseSessionService.isLoggedIn()) {
-                            if (kbaseSessionService.checkSession()){ // Has previous session
-                                console.log('has previous session. proceed')
-                                $scope.loggedIn = kbaseSessionService.isLoggedIn();
-                                //$location.path(nextRoute);
-                            }else { // No session, route to login
-                                $scope.loggedIn = kbaseSessionService.isLoggedIn();
+                        if (!nextRoute.access.isFree && !$scope.loggedIn) {
                                 var loginRoute = "/login" + nextLocation;
                                 console.log(loginRoute);
                                 $location.path(loginRoute);
-                            }
                         } else {
                             console.log("either logged, or access free");
+                            console.log($scope.loggedIn);
                         }
                 });
 
@@ -288,9 +290,6 @@ angular.module('assemblyNgApp')
                     kbaseSessionService.clearSession();
                     $route.reload();
                 };
-
-
-
 
 }]);
 
