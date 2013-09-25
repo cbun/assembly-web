@@ -55,6 +55,10 @@ body {
     margin: 6px;
 }
 
+.ar-login {
+    color:white;
+}
+
 .modal {
 display: block;
 height: 200;

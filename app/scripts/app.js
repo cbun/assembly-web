@@ -14,12 +14,12 @@ app.config(function ($routeProvider) {
         }
       })
       .when('/dashboard', {
+        name: "dashboard",
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardCtrl',
         access: {
           isFree: false
         }
-
       })
       .when('/status', {
         templateUrl: 'partials/statusAll.html',
@@ -27,14 +27,29 @@ app.config(function ($routeProvider) {
           isFree: false
         }
       })
+      .when('/login/:redirect', {
+        name: 'login',
+        templateUrl: 'partials/login.html',
+        controller: 'LoginCtrl',
+        access: {
+          isFree: true
+        }
+      })
       .when('/login', {
         templateUrl: 'partials/login.html',
+        controller: 'LoginCtrl',
+        access: {
+          isFree: true
+        }
+      })
+      .when('/welcome/', {
+        templateUrl: 'views/welcome.html',
         access: {
           isFree: true
         }
       })
       .otherwise({
-        redirectTo: '/dashboard'
+        redirectTo: '/welcome/'
       });
   });
 
