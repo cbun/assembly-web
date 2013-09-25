@@ -29,6 +29,12 @@ body {
     margin-bottom: 15px;
 }
 
+.user-status-grid {
+    border: 1px solid rgb(212,212,212);
+    height: 400px;
+    margin-bottom: 15px;
+}
+
 .user-staged-files {
     padding-bottom: : 15px;
     height: 515px;

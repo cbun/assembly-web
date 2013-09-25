@@ -103,10 +103,6 @@ angular.module('assemblyNgApp')
     };
 
     $scope.listUserFiles = function(){
-    	// if ($scope.shockUrl == ""){
-    	// 	$scope.getShockUrl();
-    	// }
-
     	var shockCall = Restangular.one('shock/').getList();
     	shockCall.then(function(data){
     		return data.shockurl;
@@ -114,15 +110,15 @@ angular.module('assemblyNgApp')
     		var shockreq = "http://" + msg;
     		console.log(shockreq);
             var shockobj = Restangular.oneUrl('', shockreq);
-    		shockobj.getList('node',{}, {
-                "Authorization": "OAuth " + $scope.arToken
-            }).then(function(shockres, error){
+    		shockobj.getList('node',{}, 
+                //{"Authorization": "OAuth " + $scope.arToken}
+                {}
+                ).then(function(shockres, error){
                     for (var i=0; i < shockres.length;i++) {
                         //$scope.userFiles.push({'Filename': shockres[i].file.name});
                         $scope.userFiles.push(shockres[i]);
                     }
     			});
-
     	});
 
     };
@@ -249,12 +245,21 @@ angular.module('assemblyNgApp')
     }]);
 
 angular.module('assemblyNgApp')
-    .controller('DashboardCtrl', ['$scope', 'kbaseSessionService',
-            function ($scope, kbaseSessionService) {
-                $scope.dashView = 'status';
+    .controller('DashboardCtrl', ['$scope', '$location', 'kbaseSessionService',
+            function ($scope, $location, kbaseSessionService) {
+                $scope.dashView = 'files';
                 $scope.tooltipQuick = 'This is the description for the tooltip';
                 $scope.tooltipCustom = 'This is the description for the tooltip';
                 $scope.tooltipAnalyze = 'This is the description for the tooltip';
+                $scope.clickQuick = function(){
+                    $location.path('/quick');
+                };
+                $scope.clickCustom = function(){
+                    $location.path('/pipeline');
+                };
+                $scope.changeDashView = function(newView){
+                    $scope.dashView = newView;
+                };
     }]);
 
 angular.module('assemblyNgApp')

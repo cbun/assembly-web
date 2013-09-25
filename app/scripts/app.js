@@ -7,8 +7,8 @@ var app = angular.module('assemblyNgApp', ['ngResource', 'ngCookies', 'ui.bootst
 app.config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'UserFileCtrl',
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashboardCtrl',
         access: {
           isFree: false
         }
@@ -21,8 +21,21 @@ app.config(function ($routeProvider) {
           isFree: false
         }
       })
-      .when('/status', {
-        templateUrl: 'partials/statusAll.html',
+      .when('/pipeline', {
+        templateUrl: 'views/main.html',
+        controller: 'UserFileCtrl',
+        access: {
+          isFree: false
+        }
+      })
+      .when('/upload', {
+        templateUrl: 'partials/uploader.html',
+        access: {
+          isFree: false
+        }
+      })
+      .when('/quick', {
+        templateUrl: 'partials/uploader.html',
         access: {
           isFree: false
         }
