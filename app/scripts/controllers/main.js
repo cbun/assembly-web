@@ -109,7 +109,7 @@ angular.module('assemblyNgApp')
     	var shockCall = Restangular.one('shock/').getList();
         $scope.userFiles = [];
         var headers = {};
-        if ($scope.showPublicFiles){
+        if (!$scope.showPublicFiles){
             headers = {"Authorization": "OAuth " + $scope.arToken};
         }
 
