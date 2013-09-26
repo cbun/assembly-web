@@ -56,12 +56,20 @@ angular.module('assemblyNgApp').
 						arRequest.single[0] = arRequest.single[0].concat(fileSet);
 					}
 				},
-				setPipeline: function(pipeline) {
+				setPipeline: function(pipeline, names) {
+					//set names to true if the pipeline is strings
+					// names: false | null if module objects
 					var i;
 					arRequest.pipeline = [];
 					for (i=0;i<pipeline.length;i++){
-						arRequest.pipeline.push(pipeline[i].name);
+						if (names){
+							arRequest.pipeline.push(pipeline[i]);
+						} else {
+							arRequest.pipeline.push(pipeline[i].name);
+						}
 					}
+					console.log('setpipe');
+					console.log(arRequest.pipeline);
 				},
 				submitRequest: function() {
 
@@ -78,7 +86,8 @@ angular.module('assemblyNgApp').
 
 
 
-
+//Return promises!
+// For REST calls to arast
 angular.module('assemblyNgApp').
 	factory('arastRestService', ['$q', '$timeout', 'kbaseSessionService', 'Restangular', 
 		function($q, $timeout, kbaseSessionService, Restangular){
@@ -91,9 +100,14 @@ angular.module('assemblyNgApp').
 			// Storage
 			var statusAll; 
 			var shockUrl;
+			var arModules;
+			var arRecipes = [
+  			  {"name": "Kiki", "pipeline": ["kiki"]}, 
+			  {"name": "SuperDuper", "pipeline": ["bhammer", "spades", "sspace"]}];
+
 			return{
 				getStatusAll: function(doRefresh) {
-					var deferred = $q.defer()
+					var deferred = $q.defer();
 					if (statusAll == undefined || doRefresh){
 						console.log('Retrieving latest status');
 						userStatusRoute.get().then(function(data){
@@ -107,6 +121,24 @@ angular.module('assemblyNgApp').
 				},
 				getFiles: function(user) {
 
+				},
+				getRecipes: function(doRefresh) {
+					var deferred = $q.defer();
+					if (arRecipes == undefined || doRefresh){
+						console.log("recipe");
+
+						//TODO call server
+						deferred.resolve(arRecipes);
+					} else {
+						deferred.resolve(arRecipes);	
+					}
+					return deferred.promise;
+				},
+				getArModules: function(doRefresh) {
+					var deferred = $q.defer();
+					if (arModules == undefined || doRefresh){
+						console.log('Getting latest modules');
+					}
 				}
 			}
 	}]);
