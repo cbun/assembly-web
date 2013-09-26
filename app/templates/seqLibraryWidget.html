@@ -1,9 +1,10 @@
 <div class="ar-panel">
 <div class="panel panel-warning">
-	<div class="panel-heading" data-drop="true" data-jqyoui-options ng-model="list2" jqyoui-droppable>{{libdata.name}} <button type="button" class="pull-right close" aria-hidden="true"><i class="glyphicon glyphicon-remove-circle"></i></button></div>
+	<div class="panel-heading" data-drop="true" data-jqyoui-options ng-model="list2" jqyoui-droppable>{{libdata.name}} 
+		<button type="button" class="pull-right close" ng-click="rmLibrary(libdata)" aria-hidden="true"><i class="glyphicon glyphicon-remove-circle"></i></button></div>
 	<!-- TODO: Make this collapsible -->
 	<ul class="list-group">
-		<li class="list-group-item" ng-repeat="sObj in libdata.shockObjs" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="list1" jqyoui-draggable="{animate:true}">{{sObj.file.name}}</li>
+		<li class="list-group-item" ng-repeat="sObj in libdata.shockObjs" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="list1" jqyoui-draggable="{animate:true}">{{sObj.file.name}} <button type="button" class="pull-right close" aria-hidden="true">&times; </button></li>
 
 	</ul>
 </div>
