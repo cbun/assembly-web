@@ -96,13 +96,14 @@ angular.module('assemblyNgApp').
 
 			// Routes
 			var userStatusRoute = Restangular.one('user', user).one('job', 'status');
-			var shockRoute = Restangular.one('shock/')
+			var shockRoute = Restangular.one('shock/');
+
 			// Storage
 			var statusAll; 
-			var shockUrl;
+			var arShockUrl;
 			var arModules;
 			var arRecipes = [
-  			  {"name": "Kiki", "pipeline": ["kiki"]}, 
+  			  {"name": "Auto", "pipeline": ["kiki"]}, 
 			  {"name": "SuperDuper", "pipeline": ["bhammer", "spades", "sspace"]}];
 
 			return{
@@ -120,7 +121,7 @@ angular.module('assemblyNgApp').
 					return deferred.promise;
 				},
 				getFiles: function(user) {
-
+					console.log();
 				},
 				getRecipes: function(doRefresh) {
 					var deferred = $q.defer();
@@ -139,9 +140,25 @@ angular.module('assemblyNgApp').
 					if (arModules == undefined || doRefresh){
 						console.log('Getting latest modules');
 					}
+				},
+				getShockUrl: function(doRefresh){
+					var deferred = $q.defer();
+					if (arShockUrl == undefined || doRefresh){
+						shockRoute.get().then(function(data){
+							console.log(data)
+							arShockUrl = data.shockurl;
+							deferred.resolve(arShockUrl);
+						})
+						
+					} else {
+						deferred.resolve(arShockUrl);	
+					}
+					return deferred.promise;
 				}
 			}
-	}]);
+		}]);
+
+
 
 
 
