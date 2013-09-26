@@ -150,53 +150,33 @@ angular.module('assemblyNgApp')
     .controller('ArFileUploadController', [
             '$scope', '$http', '$filter', '$window', 'arastService', 'arastRestService',
             function ($scope, $http, $filter, $window, arastService, arastRestService) {
+                //Init: Recipes
                 arastRestService.getRecipes().then(function(data){
                     $scope.arRecipes = data;
                     $scope.activeRecipe = $scope.arRecipes[0];
                 });
-
+                //Init: Shock Upload
+                arastRestService.getShockUrl().then(function(shockurl) {
+                    $scope.uploadUrl = "http://" + shockurl + "/node";
+                    console.log($scope.uploadUrl);
+                });
 
                 $scope.autoAssemble = false;
                 $scope.uploadText = "";
                 $scope.$watch('autoAssemble', function(){
                     $scope.uploadText = $scope.autoAssemble ? "Upload & Assemble" : "Upload";
                 });
-                $http.get(arasturl + '/shock/').then(function(data){
-                    $scope.uploadUrl = 'http://' + data.data.shockurl + '/node/';
-                });
-
-                //    console.log($scope.shockUrl);
-
-                $scope.options = {
-                    url: uploadUrl,
-//                    headers: {'Authorization': "OAuth " + $scope.arToken},
-
-                    // done: function(e, data){
-                    //     console.log(e);
-                    //     console.log(data.result);
-                    //     //$scope.queue = [];
-                    // }
-                };
 
 
 
-                $scope.loadingFiles = true;
-                $http.get($scope.uploadUrl)
-                    .then(
-                        function (response) {
-                            //console.log(response);
-                            $scope.loadingFiles = false;
-                            $scope.queue = response.data.file || [];
-                        },
-                        function () {
-                            $scope.loadingFiles = false;
-                        }
-                        );
 
 
                 $scope.$on('fileuploaddone', function(e, data){ 
                     var shockNode = data.result.data;
                     arastService.addSingle(shockNode);
+                });
+                $scope.$on('fileuploadstop', function(e, data){ 
+                    console.log(arastService.getArRequest());
                     if ($scope.autoAssemble) {
                         arastService.setPipeline($scope.activeRecipe.pipeline, true);
                         arastService.submitRequest();
