@@ -20,6 +20,9 @@ angular.module('assemblyNgApp').
 				"version": "webclient"};
 
 			return {
+				data: {
+					stagedLibraries:[]
+				},
 				setValue: function(key, value){
 					arRequest[key] = value;
 				},

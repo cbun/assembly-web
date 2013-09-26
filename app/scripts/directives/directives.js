@@ -6,6 +6,7 @@ app.directive("arLib", function() {
     scope: {
     	libdata: "="
     },
+    controller: 'UserFileCtrl',
     templateUrl: "templates/seqLibraryWidget.html",
   }
 });

@@ -8,7 +8,8 @@ angular.module('assemblyNgApp')
     $scope.arUser = kbaseSessionService.getUser();
     $scope.arToken = kbaseSessionService.getToken();
     $scope.stagedFilesFlat = [];
-    $scope.stagedLibraries = [];
+//    $scope.stagedLibraries = [];
+    $scope.stagedLibraries = arastService.data.stagedLibraries;
     $scope.libCount = 0;
     $scope.shockUrl = "";
     $scope.showPublicFiles = true;
@@ -38,6 +39,13 @@ angular.module('assemblyNgApp')
                 insert: null,
                 stdev: null};
     	$scope.stagedLibraries.push(newLib);
+    }
+
+    $scope.rmLibrary = function(libname) {
+        var idx = $scope.stagedLibraries.indexOf(libname);
+        $scope.stagedLibraries.splice(idx, 1);
+    
+
     }
 
     //NG Grid for Shock files
