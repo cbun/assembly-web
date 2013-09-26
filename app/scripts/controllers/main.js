@@ -10,7 +10,7 @@ angular.module('assemblyNgApp')
     $scope.stagedFilesFlat = [];
 //    $scope.stagedLibraries = [];
     $scope.stagedLibraries = arastService.data.stagedLibraries;
-    $scope.libCount = 0;
+    $scope.libCount = $scope.stagedLibraries.length;
     $scope.shockUrl = "";
     $scope.showPublicFiles = true;
     $scope.userFiles = [];
@@ -23,7 +23,7 @@ angular.module('assemblyNgApp')
 
     $scope.stageFile = function(shockObjs){
     	//initial files
-    	if ($scope.libCount == 0) {
+    	if ($scope.stagedLibraries.length == 0) {
     		$scope.addLibrary();
     	}
     	var lastLib = $scope.stagedLibraries.pop();
