@@ -22,7 +22,7 @@
 </div>
 
 <div class="col-md-8" ng-switch on="dashView"> 
-	<div ng-switch-when="status" ng-include=" 'partials/statusAll.html' " ng-controller="ArStatusCtrl"></div>
+	<div ng-switch-when="status" ng-include=" 'partials/statusAll.html' " ng-controller="ArStatusCtrl" ng-show="loaded"></div>
 	<div ng-switch-when="files" ng-include=" 'partials/userFiles.html' " ng-controller="UserFileCtrl" data-ng-init="listUserFiles()"></div>
 
 

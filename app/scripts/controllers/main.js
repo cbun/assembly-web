@@ -234,24 +234,31 @@ angular.module('assemblyNgApp')
         ]);
 
 
-angular.module('assemblyNgApp')
+var statusCtrl = angular.module('assemblyNgApp')
     .controller('ArStatusCtrl', [
-            '$scope', 'arastRestService',
-            function ($scope, arastRestService) {
-                $scope.userDocs = arastRestService.getStatusAll();
+            '$scope', '$q', 'arastRestService',
+            function ($scope, $q, arastRestService) {
+                $scope.loaded = false;
 
-                //NG Grid for Shock files
                 $scope.mySelections = []
-                $scope.gridOptions = { 
-                    data: "userDocs",
-                    selectedItems: $scope.mySelections,
-                    multiSelect: false,
-                    columnDefs: [
-                    {field: "job_id", displayName: 'Job', width: 100},
-                    {field: "status", displayName: "Status"},
-                    {field: "message", displayName: "Description"}
-                    ]
-    };
+                        $scope.gridOptions = { 
+                            data: "userDocs",
+                            selectedItems: $scope.mySelections,
+                            multiSelect: false,
+                            columnDefs: [
+                            {field: "job_id", displayName: 'Job', width: 100},
+                            {field: "status", displayName: "Status"},
+                            {field: "message", displayName: "Description"}
+                            ]
+                        };
+
+                arastRestService.getStatusAll().then(function(data){
+                        $scope.userDocs = data;
+                        $scope.loaded = true;
+                        return data;
+                });
+
+                
     }]);
 
 angular.module('assemblyNgApp')

@@ -77,8 +77,8 @@ angular.module('assemblyNgApp').
 
 
 angular.module('assemblyNgApp').
-	factory('arastRestService', ['kbaseSessionService', 'Restangular', 
-		function(kbaseSessionService, Restangular){
+	factory('arastRestService', ['$q', '$timeout', 'kbaseSessionService', 'Restangular', 
+		function($q, $timeout, kbaseSessionService, Restangular){
 			var user = kbaseSessionService.getUser();
 			var token = kbaseSessionService.getToken();
 
@@ -90,16 +90,17 @@ angular.module('assemblyNgApp').
 			var shockUrl;
 			return{
 				getStatusAll: function(doRefresh) {
-					console.log('get status');
+					var deferred = $q.defer()
 					if (statusAll == undefined || doRefresh){
 						console.log('Retrieving latest status');
 						userStatusRoute.get().then(function(data){
 							statusAll = data;
-							console.log(statusAll);
-							return statusAll;
-						})
+							deferred.resolve(statusAll);
+						});
+					} else {
+						deferred.resolve(statusAll);
 					}
-					return statusAll;
+					return deferred.promise;
 				},
 				getFiles: function(user) {
 

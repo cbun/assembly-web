@@ -19,7 +19,11 @@ app.config(function ($routeProvider) {
         controller: 'DashboardCtrl',
         access: {
           isFree: false
+        },
+        resolve: {
+//          init: statusCtrl
         }
+
       })
       .when('/pipeline', {
         templateUrl: 'views/main.html',
