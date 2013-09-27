@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('assemblyNgApp', ['ngResource', 'ngCookies', 'ui.bootstrap', 
+var app = angular.module('assemblyNgApp', ['ngResource', 'ngRoute','ngCookies', 'ui.bootstrap', 
   'ngDragDrop', 'ngGrid', 'restangular', 'webStorageModule', 'blueimp.fileupload', 'frapontillo.bootstrap-switch']);
 
 // Routing
@@ -44,6 +44,12 @@ app.config(function ($routeProvider) {
           isFree: false
         }
       })
+      .when('/job', {
+        templateUrl: 'views/job.html',
+        access: {
+          isFree: true
+        }
+      })
       .when('/login/:redirect', {
         name: 'login',
         templateUrl: 'partials/login.html',
@@ -77,6 +83,13 @@ app.config(['$httpProvider', function($httpProvider) {
         console.log($httpProvider.defaults.headers.common);
       }]);
 
+
+app.config(function($sceDelegateProvider) {
+  $sceDelegateProvider.resourceUrlWhitelist(['.*']);
+});
+
+
+
 // Restangular config
 app.config(function(RestangularProvider){
   RestangularProvider.setBaseUrl("http://140.221.84.203:8000/");
@@ -103,5 +116,6 @@ app.config(['$httpProvider', 'fileUploadProvider',
                 );
             }
         ]);
+
 
         

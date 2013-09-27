@@ -335,7 +335,5 @@ angular.module('assemblyNgApp')
                     $location.path("/" + $scope.redirect + "/");
                     $scope.$apply();
 
-
-
                 };
     }]);
