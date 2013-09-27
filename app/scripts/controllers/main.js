@@ -160,6 +160,7 @@ angular.module('assemblyNgApp')
                     $scope.uploadUrl = "http://" + shockurl + "/node";
                     console.log($scope.uploadUrl);
                 });
+                $scope.queue = [];
 
                 $scope.autoAssemble = false;
                 $scope.uploadText = "";
@@ -176,7 +177,7 @@ angular.module('assemblyNgApp')
                     arastService.addSingle(shockNode);
                 });
                 $scope.$on('fileuploadstop', function(e, data){ 
-                    console.log(arastService.getArRequest());
+                    $scope.queue = [];
                     if ($scope.autoAssemble) {
                         arastService.setPipeline($scope.activeRecipe.pipeline, true);
                         arastService.submitRequest();
