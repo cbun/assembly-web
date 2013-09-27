@@ -27,10 +27,10 @@
 </div>
 <div class="row well">
 	<div class="col-md-6">
-		<button class="btn btn-sm btn-danger" ng-click="nextStage()">
+		<button class="btn btn-sm btn-danger" ng-click="prevStage()">
 			<span class="glyphicon glyphicon-chevron-left"></span> Back</button></div>
 	<div class="col-md-6">
-		<button class="btn btn-sm btn-danger pull-right" ng-click="nextStage()">
+		<button class="btn btn-sm btn-danger pull-right" ng-click="nextStage()" ng-show="pipeline.length > 0">
 			<span class="glyphicon glyphicon-chevron-right"></span> Proceed</button>
 	</div>
 </div>

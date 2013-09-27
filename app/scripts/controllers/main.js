@@ -3,12 +3,10 @@
 angular.module('assemblyNgApp')
   .controller('UserFileCtrl', ['$scope', '$resource', 'Restangular', 'arastService', 'kbaseSessionService',
     function ($scope, $resource, Restangular, arastService, kbaseSessionService) {
-        // Init
 
     $scope.arUser = kbaseSessionService.getUser();
     $scope.arToken = kbaseSessionService.getToken();
     $scope.stagedFilesFlat = [];
-//    $scope.stagedLibraries = [];
     $scope.stagedLibraries = arastService.data.stagedLibraries;
     $scope.libCount = $scope.stagedLibraries.length;
     $scope.shockUrl = "";
@@ -19,6 +17,10 @@ angular.module('assemblyNgApp')
     $scope.arStage = 1;
     $scope.nextStage = function(){
         $scope.arStage++;
+    };
+
+    $scope.prevStage = function(){
+        $scope.arStage--;
     };
 
     $scope.stageFile = function(shockObjs){
