@@ -19,7 +19,8 @@
     "requirejs-jquery": "~0.25.0",
     "angular-webstorage": "~0.9.3",
     "bootstrap-switch": "*",
-    "angular-bootstrap-switch": "~0.1.1"
+    "angular-bootstrap-switch": "~0.1.1",
+    "angular-route": "~1.2.0-rc.2"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.7",
