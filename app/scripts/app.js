@@ -80,7 +80,6 @@ app.config(function ($routeProvider) {
 app.config(['$httpProvider', function($httpProvider) {
         delete $httpProvider.defaults.headers.common["X-Requested-With"];
         delete $httpProvider.defaults.headers.common["Origin"];
-        console.log($httpProvider.defaults.headers.common);
       }]);
 
 

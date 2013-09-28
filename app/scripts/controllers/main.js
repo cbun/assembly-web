@@ -234,24 +234,60 @@ var statusCtrl = angular.module('assemblyNgApp')
             '$scope', '$q', 'arastRestService',
             function ($scope, $q, arastRestService) {
                 $scope.loaded = false;
+                $scope.userDocs;
+                $scope.mySelections = [];
+                // $scope.$watch('mySelections[0]', function(){
+                //     console.log($scope.mySelections)
+                // });
 
-                $scope.mySelections = []
-                        $scope.gridOptions = { 
-                            data: "userDocs",
-                            selectedItems: $scope.mySelections,
-                            multiSelect: false,
-                            columnDefs: [
-                            {field: "job_id", displayName: 'Job', width: 100},
-                            {field: "status", displayName: "Status"},
-                            {field: "message", displayName: "Description"}
-                            ]
-                        };
+                $scope.enableDlLink = function(job_data){
+                    //$scope.downloadLink = 'http://' www.
+                    console.log(job_data);
+                    var job_id = job_data.job_id;
+                    var asm_re = /assemblies/;
+                    var ctg_re = /ctg/;
+                    arastRestService.getShockNodes(job_id).then(function(nodes){
+                        for (var key in nodes){
+                            if (asm_re.exec(key)){
+                                var id = nodes[key];
+                                $scope.asmDownloadLink = "http://" + $scope.shockUrl + '/node/' +
+                                  id + "/?download";
+                                console.log($scope.asmDownloadLink);    
+                            }
+                            if (ctg_re.exec(key)){
+                                var id = nodes[key];
+                                $scope.ctgDownloadLink = "http://" + $scope.shockUrl + '/node/' +
+                                  id + "/?download";
+                                console.log($scope.ctgDownloadLink);    
+                            }
+                        }
+                    })
+                };
+                $scope.gridOptions = { 
+                    data: "userDocs",
+                    selectedItems: $scope.mySelections,
+                    multiSelect: false,
+                    columnDefs: [
+                    {field: "job_id", displayName: 'Job', width: 100},
+                    {field: "status", displayName: "Status"},
+                    {field: "message", displayName: "Description"}
+                    ],
+                    rowTemplate:'<div style="height: 100%" ng-class="{arGridSuccess: row.getProperty(\'status\').substring(0,4) == \'pipe\', arGridFail: row.getProperty(\'status\').substring(0,4) != \'pipe\'}"><div  \'cursor\': row.cursor }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell ">' +
+                    '<div class="ngVerticalBar" ng-style="{height: rowHeight}" ng-class="{ ngVerticalBarVisible: !$last }"> </div>' +
+                   '<div ng-cell></div>' +
+                   '</div></div>'
+                };
 
                 arastRestService.getStatusAll().then(function(data){
-                        $scope.userDocs = data;
-                        $scope.loaded = true;
-                        return data;
+                    $scope.userDocs = data;
+                    $scope.loaded = true;
+                    return data;
                 });
+
+                arastRestService.getShockUrl().then(function(data){
+                    $scope.shockUrl = data;
+                });
+
 
                 
     }]);

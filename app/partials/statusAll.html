@@ -4,10 +4,22 @@
 	<div class="preview row" ng-show="mySelections.length > 0">
 		<div class="panel panel-primary">
 			<div class="panel-heading">Job Preview
+
 			<button class="btn btn-xs btn-info pull-right">Details</button>
+			<div class="btn-group pull-right">
+				<button class="btn btn-xs btn-danger dropdown-toggle pull-right" style="margin-right: 4px" ng-show="mySelections[0].status.substring(0,4) == 'pipe'" ng-click="enableDlLink(mySelections[0])">Download Results</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="{{asmDownloadLink}}" download="asm.zip">Assemblies</a></li>
+					<li><a href="{{ctgDownloadLink}}" download="ctg.zip">Assessment</a></li>
+
+				</ul>
+
+		</div>
 		    </div>
 		    <div class="panel-body">
-		    	{{mySelections[0].job_id}}
+		    	<p>Job Id: {{mySelections[0].job_id}}</p>
+		    	<p>Compute time: {{mySelections[0].computation_time}}</p>
+		    	<p>Files: {{mySelections[0].filename}}</p>
 		    </div>
 		</div>
 		

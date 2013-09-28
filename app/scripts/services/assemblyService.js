@@ -96,6 +96,7 @@ angular.module('assemblyNgApp').
 
 			// Routes
 			var userStatusRoute = Restangular.one('user', user).one('job', 'status');
+			var jobRoute = Restangular.one('user', user).one('job');
 			var shockRoute = Restangular.one('shock/');
 
 			// Storage
@@ -111,7 +112,7 @@ angular.module('assemblyNgApp').
 					var deferred = $q.defer();
 					if (statusAll == undefined || doRefresh){
 						console.log('Retrieving latest status');
-						userStatusRoute.get().then(function(data){
+						userStatusRoute.get({"format": "json"}).then(function(data){
 							statusAll = data;
 							deferred.resolve(statusAll);
 						});
@@ -140,6 +141,13 @@ angular.module('assemblyNgApp').
 					if (arModules == undefined || doRefresh){
 						console.log('Getting latest modules');
 					}
+				},
+				getShockNodes: function(job_id){
+					var deferred = $q.defer();
+					jobRoute.one(job_id, "shock_node").get().then(function(data){
+						deferred.resolve(data);	
+					});
+					return deferred.promise;
 				},
 				getShockUrl: function(doRefresh){
 					var deferred = $q.defer();
