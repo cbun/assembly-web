@@ -22,9 +22,15 @@
 </div>
 
 <div class="col-md-8" ng-switch on="dashView"> 
-	<div ng-switch-when="status" ng-include=" 'partials/statusAll.html' " ng-controller="ArStatusCtrl" ng-show="loaded"></div>
-	<div ng-switch-when="files" ng-include=" 'partials/userFiles.html' " ng-controller="UserFileCtrl" data-ng-init="listUserFiles()"></div>
-		<div ng-switch-when="activity" ng-include=" 'partials/comingsoon.html' "<div>
+	<div ng-switch-when="status">
+		<div ng-include=" 'partials/statusAll.html' " ng-controller="ArStatusCtrl" ng-show="loaded"></div>
+	</div>
+	<div ng-switch-when="files">
+		<div ng-include=" 'partials/userFiles.html' " ng-controller="UserFileCtrl" data-ng-init="listUserFiles()"></div>
+	</div>
+	<div ng-switch-when="activity">
+		<div ng-include=" 'partials/comingsoon.html' "></div>
+	</div>
 
 
 </div>
