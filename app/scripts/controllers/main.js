@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('assemblyNgApp')
-  .controller('UserFileCtrl', ['$scope', '$resource', 'Restangular', 'arastService', 'kbaseSessionService',
-    function ($scope, $resource, Restangular, arastService, kbaseSessionService) {
+  .controller('UserFileCtrl', ['$scope', '$resource', 'Restangular', 'arastService', 'kbaseSessionService', 'arastRestService',
+    function ($scope, $resource, Restangular, arastService, kbaseSessionService, arastRestService) {
 
     $scope.arUser = kbaseSessionService.getUser();
     $scope.arToken = kbaseSessionService.getToken();
@@ -115,31 +115,13 @@ angular.module('assemblyNgApp')
         $scope.listUserFiles();
     }
 
-    $scope.listUserFiles = function(){
-    	var shockCall = Restangular.one('shock/').getList();
-        $scope.userFiles = [];
-        var headers = {};
-        if (!$scope.showPublicFiles){
-            headers = {"Authorization": "OAuth " + $scope.arToken};
-        }
-
-    	shockCall.then(function(data){
-    		return data.shockurl;
-    	}).then(function(msg) {
-    		var shockreq = "http://" + msg;
-    		console.log(shockreq);
-            var shockobj = Restangular.oneUrl('', shockreq);
-    		shockobj.getList('node',{}, 
-                //
-                headers
-                ).then(function(shockres, error){
-                    for (var i=0; i < shockres.length;i++) {
-                        //$scope.userFiles.push({'Filename': shockres[i].file.name});
-                        $scope.userFiles.push(shockres[i]);
-                    }
-    			});
-    	});
-
+    $scope.listUserFiles = function(filetype){
+        arastRestService.getFiles(filetype).then(function(shockres){
+            console.log(shockres);
+            for (var i=0; i < shockres.length;i++) {
+                $scope.userFiles.push(shockres[i]);
+            }
+        });
     };
   
   }]);

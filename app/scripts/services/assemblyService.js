@@ -121,8 +121,20 @@ angular.module('assemblyNgApp').
 					}
 					return deferred.promise;
 				},
-				getFiles: function(user) {
-					console.log();
+				getFiles: function(filetype) {
+					var deferred = $q.defer();
+					this.getShockUrl().then(function(shockUrl){
+
+						var shockreq = "http://" + shockUrl ;
+						var shockQuery = Restangular.oneUrl('', shockreq);
+						shockQuery.getList("node", {"querynode": "blank", 
+							                        "attributes.filetype": filetype, 
+							                        "attributes.user": user}, {}).then(
+							function(shockres){
+								deferred.resolve(shockres)
+							})
+					});
+					return deferred.promise;
 				},
 				getRecipes: function(doRefresh) {
 					var deferred = $q.defer();
