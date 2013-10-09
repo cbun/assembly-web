@@ -5,7 +5,7 @@
 	<body>
 		<div class="animate-switch-container container" ng-switch on="arStage"> 
 		<div ng-switch-when=1 >
-			<div ng-include="'partials/file_stager.html'" data-ng-init="listUserFiles()"></div>
+			<div ng-include="'partials/file_stager.html'" data-ng-init="listUserFiles('reads')"></div>
 		</div>
 		<div ng-switch-when=2>
 			<div ng-include="'partials/pipeline_builder.html'" data-ng-init="getArModules()"></div>
