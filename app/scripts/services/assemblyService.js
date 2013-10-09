@@ -89,8 +89,8 @@ angular.module('assemblyNgApp').
 //Return promises!
 // For REST calls to arast
 angular.module('assemblyNgApp').
-	factory('arastRestService', ['$q', '$timeout', 'kbaseSessionService', 'Restangular', 
-		function($q, $timeout, kbaseSessionService, Restangular){
+	factory('arastRestService', ['$q', 'kbaseSessionService', 'Restangular', 
+		function($q, kbaseSessionService, Restangular){
 			var user = kbaseSessionService.getUser();
 			var token = kbaseSessionService.getToken();
 
@@ -177,8 +177,6 @@ angular.module('assemblyNgApp').
 				}
 			}
 		}]);
-
-
 
 
 

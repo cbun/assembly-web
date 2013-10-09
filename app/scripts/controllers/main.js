@@ -152,13 +152,10 @@ angular.module('assemblyNgApp')
                     $scope.uploadText = $scope.autoAssemble ? "Upload & Assemble" : "Upload";
                 });
 
-
-
-
-
                 $scope.$on('fileuploaddone', function(e, data){ 
                     var shockNode = data.result.data;
                     arastService.addSingle(shockNode);
+                    
                 });
                 $scope.$on('fileuploadstop', function(e, data){ 
                     $scope.queue = [];
