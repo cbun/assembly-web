@@ -72,7 +72,6 @@ angular.module('assemblyNgApp').
 					console.log(arRequest.pipeline);
 				},
 				submitRequest: function() {
-
 					var arSubmitUrl = Restangular.one('user', user).one('job');
 					arSubmitUrl.post('new', arRequest, {}, {
 						"Authorization": "OAuth " + token

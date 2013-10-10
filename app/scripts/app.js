@@ -80,19 +80,20 @@ app.config(function ($routeProvider) {
 app.config(['$httpProvider', function($httpProvider) {
         delete $httpProvider.defaults.headers.common["X-Requested-With"];
         delete $httpProvider.defaults.headers.common["Origin"];
+        delete $httpProvider.defaults.headers.put["Content-Type"];
       }]);
 
 
-app.config(function($sceDelegateProvider) {
-  $sceDelegateProvider.resourceUrlWhitelist(['.*']);
-});
+// app.config(function($sceDelegateProvider) {
+//   $sceDelegateProvider.resourceUrlWhitelist(['.*']);
+// });
 
 
 
 // Restangular config
 app.config(function(RestangularProvider){
   RestangularProvider.setBaseUrl("http://140.221.84.203:8000/");
-  RestangularProvider.setDefaultHeaders();
+ // RestangularProvider.setDefaultHeaders();
 
   RestangularProvider.setResponseExtractor(function(response, operation, what, url) {
         // Extract data objects from shock node
@@ -108,7 +109,6 @@ app.config(function(RestangularProvider){
 app.config(['$httpProvider', 'fileUploadProvider',
             function ($httpProvider, fileUploadProvider) {
                 delete $httpProvider.defaults.headers.common['X-Requested-With'];
-                console.log('config');
                 fileUploadProvider.defaults.redirect = window.location.href.replace(
                     /\/[^\/]*$/,
                     '/cors/result.html?%s'

@@ -132,8 +132,8 @@ var uploadUrl = ''
 
 angular.module('assemblyNgApp')
     .controller('ArFileUploadController', [
-            '$scope', '$http', '$filter', '$window', 'arastService', 'arastRestService',
-            function ($scope, $http, $filter, $window, arastService, arastRestService) {
+            '$scope', '$http', '$filter', '$window', 'arastService', 'arastRestService', 'shockService',
+            function ($scope, $http, $filter, $window, arastService, arastRestService, shockService) {
                 //Init: Recipes
                 arastRestService.getRecipes().then(function(data){
                     $scope.arRecipes = data;
@@ -142,7 +142,6 @@ angular.module('assemblyNgApp')
                 //Init: Shock Upload
                 arastRestService.getShockUrl().then(function(shockurl) {
                     $scope.uploadUrl = "http://" + shockurl + "/node";
-                    console.log($scope.uploadUrl);
                 });
                 $scope.queue = [];
 
@@ -154,8 +153,10 @@ angular.module('assemblyNgApp')
 
                 $scope.$on('fileuploaddone', function(e, data){ 
                     var shockNode = data.result.data;
+                    var attr = {'filetype': 'reads'}
                     arastService.addSingle(shockNode);
-                    
+                    shockService.updateNode(shockNode.id, attr);
+
                 });
                 $scope.$on('fileuploadstop', function(e, data){ 
                     $scope.queue = [];
