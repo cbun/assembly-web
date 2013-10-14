@@ -253,7 +253,7 @@ var statusCtrl = angular.module('assemblyNgApp')
                     {field: "status", displayName: "Status"},
                     {field: "message", displayName: "Description"}
                     ],
-                    rowTemplate:'<div style="height: 100%" ng-class="{arGridSuccess: row.getProperty(\'status\').substring(0,4) == \'pipe\', arGridFail: row.getProperty(\'status\').substring(0,4) != \'pipe\'}"><div  \'cursor\': row.cursor }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell ">' +
+                    rowTemplate:'<div style="height: 100%" ng-class="{arGridSuccess: row.getProperty(\'status\').substring(0,4) == \'pipe\', arGridFail: row.getProperty(\'status\').substring(0,4) != \'pipe\', arGridRun: row.getProperty(\'status\').substring(0,4) == \'Runn\'}"><div  \'cursor\': row.cursor }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell ">' +
                     '<div class="ngVerticalBar" ng-style="{height: rowHeight}" ng-class="{ ngVerticalBarVisible: !$last }"> </div>' +
                    '<div ng-cell></div>' +
                    '</div></div>'
@@ -264,6 +264,12 @@ var statusCtrl = angular.module('assemblyNgApp')
                     arastRestService.getStatusAll(true).then(function(data){
                         $scope.userDocs = data;
                     });
+                };
+
+                $scope.killJob = function(job_id){
+                    arastRestService.killJob(job_id).then(function(res){
+                        alert(res);
+                    })
                 };
 
                 arastRestService.getStatusAll().then(function(data){
