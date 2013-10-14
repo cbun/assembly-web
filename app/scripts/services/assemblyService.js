@@ -1,5 +1,5 @@
 'use strict';
-
+// This service is for building jobs for submission
 angular.module('assemblyNgApp').
 	factory('arastService', ['Restangular', 'kbaseSessionService',
 		function(Restangular, kbaseSessionService) {
@@ -77,6 +77,19 @@ angular.module('assemblyNgApp').
 						"Authorization": "OAuth " + token
 					}).then(function(data){
 						alert("Job submitted: " + data);
+						// Reset records
+						var arRequest = {
+							"data_id": null, 
+							"file_sizes": [], 
+							"filename": [], 
+							"ids": [], 
+							"message": null, 
+							"pipeline": [['kiki']], 
+							"queue": null, 
+							"single": [[]],
+							"pair": [],
+							"reference": null, 
+							"version": "webclient"};
 					});
 
 				}

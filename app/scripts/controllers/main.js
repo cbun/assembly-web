@@ -87,6 +87,7 @@ angular.module('assemblyNgApp')
         arastService.setPipeline($scope.pipeline);
         console.log(arastService.getArRequest());
         arastService.submitRequest();
+        arastService.data.stagedLibraries = [];
 
     };
 
