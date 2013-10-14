@@ -258,6 +258,13 @@ var statusCtrl = angular.module('assemblyNgApp')
                    '</div></div>'
                 };
 
+                $scope.refreshStatus = function(){
+                    console.log('Refreshing status');
+                    arastRestService.getStatusAll(true).then(function(data){
+                        $scope.userDocs = data;
+                    });
+                };
+
                 arastRestService.getStatusAll().then(function(data){
                     $scope.userDocs = data;
                     $scope.loaded = true;

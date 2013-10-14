@@ -1,5 +1,5 @@
 <div ng-controller="ArStatusCtrl">
-	<h1>Job Status</h1>
+	<h1>Job Status <i class="glyphicon glyphicon-refresh pull-right btn" ng-click="refreshStatus()"></i></h1>
 	<div class="user-status-grid col-md-12" ng-grid="gridOptions"></div>
 	<div class="preview row" ng-show="mySelections.length > 0">
 		<div class="panel panel-primary">
