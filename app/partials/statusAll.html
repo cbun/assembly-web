@@ -15,6 +15,7 @@
 				</ul>
 
 		</div>
+		<button class="btn btn-xs btn-danger pull-right" style="margin-right: 4px" ng-show="mySelections[0].status.substring(0,4) == 'Runn'" ng-click="killJob(mySelections[0].job_id)">Kill Job</button>
 		    </div>
 		    <div class="panel-body">
 		    	<p>Job Id: {{mySelections[0].job_id}}</p>

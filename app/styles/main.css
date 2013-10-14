@@ -84,6 +84,10 @@ h1,h2,h3{
     color: red;
 }
 
+.arGridRun {
+    color: blue;
+}
+
 .modal {
 display: block;
 height: 200;

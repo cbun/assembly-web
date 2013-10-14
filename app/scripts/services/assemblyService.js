@@ -186,6 +186,14 @@ angular.module('assemblyNgApp').
 						deferred.resolve(arShockUrl);	
 					}
 					return deferred.promise;
+				},
+				killJob: function(job_id) {
+					var deferred = $q.defer();
+					jobRoute.one(job_id, "kill").get({},{"Authorization": "OAuth " + token}).then(function(data){
+						deferred.resolve(data);							
+					});
+					return deferred.promise;
+
 				}
 			}
 		}]);
