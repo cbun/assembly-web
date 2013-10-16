@@ -367,3 +367,16 @@ angular.module('assemblyNgApp')
 
                 };
     }]);
+
+angular.module('assemblyNgApp')
+    .controller('JobInfoCtrl', ['$scope', '$location', '$route', '$routeParams', 'arastRestService',
+            function ($scope, $location, $route, $routeParams, arastRestService) {
+                $scope.job_id = $routeParams.id;
+                $scope.$location = $location;
+                $scope.jobInfo;
+                console.log($scope.job_id);
+                arastRestService.getJobInfo($scope.job_id).then(function(res){
+                    $scope.jobInfo = res;
+                });
+
+    }]);

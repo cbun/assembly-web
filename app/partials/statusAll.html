@@ -4,8 +4,7 @@
 	<div class="preview row" ng-show="mySelections.length > 0">
 		<div class="panel panel-primary">
 			<div class="panel-heading">Job Preview
-
-				<button class="btn btn-xs btn-info btn-disabled pull-right" disabled>Details</button>
+				<a class="btn btn-xs btn-info pull-right" href="#/job/{{mySelections[0].job_id}}">Details</a>
 			<div class="btn-group pull-right">
 				<button class="btn btn-xs btn-danger dropdown-toggle pull-right" style="margin-right: 4px" ng-show="mySelections[0].status.substring(0,4) == 'pipe'" ng-click="enableDlLink(mySelections[0])">Download Results</button>
 				<ul class="dropdown-menu" role="menu">
@@ -13,8 +12,7 @@
 					<li><a href="{{ctgDownloadLink}}" download="ctg.zip">Assessment</a></li>
 
 				</ul>
-
-		</div>
+	</div>
 		<button class="btn btn-xs btn-danger pull-right" style="margin-right: 4px" ng-show="mySelections[0].status.substring(0,4) == 'Runn'" ng-click="killJob(mySelections[0].job_id)">Kill Job</button>
 		    </div>
 		    <div class="panel-body">

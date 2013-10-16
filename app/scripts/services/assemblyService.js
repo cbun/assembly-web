@@ -133,6 +133,14 @@ angular.module('assemblyNgApp').
 					}
 					return deferred.promise;
 				},
+				getJobInfo: function(job_id) {
+					var deferred = $q.defer();
+					jobRoute.one(job_id, 'status').get({'format': 'json'}).then(function(data){
+							var jobInfo = data;
+							deferred.resolve(jobInfo);
+						});
+					return deferred.promise;
+				},
 				getFiles: function(filetype) {
 					var deferred = $q.defer();
 					this.getShockUrl().then(function(shockUrl){
