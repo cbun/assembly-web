@@ -44,7 +44,7 @@ app.config(function ($routeProvider) {
           isFree: false
         }
       })
-      .when('/job', {
+      .when('/job/:id', {
         templateUrl: 'views/job.html',
         access: {
           isFree: true
