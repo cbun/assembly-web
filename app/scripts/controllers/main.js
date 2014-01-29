@@ -13,6 +13,7 @@ angular.module('assemblyNgApp')
     $scope.showPublicFiles = true;
     $scope.userFiles = [];
 
+
     // Shock node staging
     $scope.shockInput = false;
     $scope.shocknode = 'hello';
@@ -33,6 +34,7 @@ angular.module('assemblyNgApp')
         $scope.shockInput = true;
         $scope.shocknode = '';
     };
+
 
     //Navigation
     $scope.arStage = 1;
@@ -67,6 +69,7 @@ angular.module('assemblyNgApp')
     $scope.rmLibrary = function(libname) {
         var idx = $scope.stagedLibraries.indexOf(libname);
         $scope.stagedLibraries.splice(idx, 1);
+
     };
 
 
@@ -92,7 +95,7 @@ angular.module('assemblyNgApp')
                 $scope.arModules = res;
                 console.log(res);
             });
-        }
+       }
     };
 
 //    $scope.removeFromPipeline

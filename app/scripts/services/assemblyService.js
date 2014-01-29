@@ -21,8 +21,10 @@ angular.module('assemblyNgApp').
 
 			return {
 				data: {
+
 					stagedLibraries:[],
 					fileUrls: []
+
 				},
 				setValue: function(key, value){
 					arRequest[key] = value;
@@ -176,7 +178,9 @@ angular.module('assemblyNgApp').
 					}
 				},
 				getShockNodes: function(job_id){
+
 					// Return all the shock node ids from a single Job
+
 					var deferred = $q.defer();
 					jobRoute.one(job_id, "shock_node").get().then(function(data){
 						deferred.resolve(data);	
@@ -184,7 +188,9 @@ angular.module('assemblyNgApp').
 					return deferred.promise;
 				},
 				getShockUrl: function(doRefresh){
+
 					// Return the URL of the Shock storage server
+
 					var deferred = $q.defer();
 					if (arShockUrl == undefined || doRefresh){
 						shockRoute.get().then(function(data){

@@ -33,6 +33,7 @@
 <!-- 				<button class="btn btn-sm btn-info" ng-model="showUpload" ng-click="toggleUpload()">
 					<span class="glyphicon glyphicon-cloud-upload"></span> Upload
 				</button> -->
+
 				<!-- 				<button class="btn btn-sm btn-warning" ng-show="mySelections.length > 0"><span class="glyphicon glyphicon-trash"></span> Delete</button> -->
 				<button class="btn btn-sm btn-success" ng-click="stageFile(mySelections)" ng-show="mySelections.length > 0"><span class="glyphicon glyphicon-plus-sign"></span> Stage file<span ng-show="mySelections.length > 1">s</span> <span class="badge">  {{mySelections.length}}</span></button>
 				<!-- <button class="btn btn-sm btn-warning" ng-click="enableShock()"><i class="glyphicon glyphicon-plus-sign"></i> Shock ID</button> -->
@@ -41,6 +42,7 @@
 				<button class="btn btn-xs"><i class="glyphicon glyphicon-ok" ng-click="stageNode(shocknode)"></i></button>
 				<button class="btn btn-xs"><i class="glyphicon glyphicon-remove" ng-click="clearNode()"></i></button>
 			</span>
+
 			</div>
 			<div class="col-md-6">
 				<button class="btn btn-sm btn-danger pull-right" ng-click="nextStage()" ng-show="stagedLibraries.length > 0">
