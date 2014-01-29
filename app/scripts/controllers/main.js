@@ -13,6 +13,27 @@ angular.module('assemblyNgApp')
     $scope.showPublicFiles = true;
     $scope.userFiles = [];
 
+    // Shock node staging
+    $scope.shockInput = false;
+    $scope.shocknode = 'hello';
+
+    $scope.stageNode = function(node) {
+        console.log(node)
+        var sObjs = [{'id': node, 'handle_type': 'shocknode', "file": {"name": "sn-" + node}}]
+        $scope.stageFile(sObjs);
+        $scope.clearNode();
+    };
+
+    $scope.clearNode = function() {
+        $scope.shocknode = '';
+        $scope.shockInput = false;
+    };
+
+    $scope.enableShock = function() {
+        $scope.shockInput = true;
+        $scope.shocknode = '';
+    };
+
     //Navigation
     $scope.arStage = 1;
     $scope.nextStage = function(){
@@ -46,9 +67,9 @@ angular.module('assemblyNgApp')
     $scope.rmLibrary = function(libname) {
         var idx = $scope.stagedLibraries.indexOf(libname);
         $scope.stagedLibraries.splice(idx, 1);
-    
+    };
 
-    }
+
 
     //NG Grid for Shock files
     $scope.mySelections = []
