@@ -277,7 +277,7 @@ var statusCtrl = angular.module('assemblyNgApp')
                     {field: "status", displayName: "Status"},
                     {field: "message", displayName: "Description"}
                     ],
-                    rowTemplate:'<div style="height: 100%" ng-class="{arGridSuccess: row.getProperty(\'status\').substring(0,4) == \'pipe\', arGridFail: row.getProperty(\'status\').substring(0,4) != \'pipe\', arGridRun: row.getProperty(\'status\').substring(0,4) == \'Runn\'}"><div  \'cursor\': row.cursor }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell ">' +
+                    rowTemplate:'<div style="height: 100%" ng-class="{arGridSuccess: row.getProperty(\'status\').substring(0,4) == \'Comp\', arGridFail: row.getProperty(\'status\').substring(0,4) != \'Comp\', arGridRun: row.getProperty(\'status\').substring(0,4) == \'Runn\'}"><div  \'cursor\': row.cursor }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell ">' +
                     '<div class="ngVerticalBar" ng-style="{height: rowHeight}" ng-class="{ ngVerticalBarVisible: !$last }"> </div>' +
                    '<div ng-cell></div>' +
                    '</div></div>'
