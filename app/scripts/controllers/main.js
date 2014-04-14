@@ -398,9 +398,25 @@ angular.module('assemblyNgApp')
                 $scope.job_id = $routeParams.id;
                 $scope.$location = $location;
                 $scope.jobInfo;
-                console.log($scope.job_id);
+                $scope.libs;
+                $scope.log = ''
                 arastRestService.getJobInfo($scope.job_id).then(function(res){
-                    $scope.jobInfo = res;
+                    $scope.jobInfo = res
+                    $scope.jobInfoPretty = JSON.stringify(res,undefined,2);  
+                    $scope.libs = []
+                    var sets = res.assembly_data.file_sets
+                    for (var i=0; i<sets.length; i++){
+                        if (sets[i].type == 'single' || sets[i].type == 'paired'){
+                            $scope.libs.push(sets[i].file_infos)
+                        }
+                    }
+                    console.log($scope.libs);
                 });
+
+                // Retrieve Log file
+                arastRestService.getJobResults($scope.job_id).then(function(data){
+                    $scope.log = data;
+                });
+
 
     }]);

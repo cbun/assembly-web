@@ -113,6 +113,8 @@ angular.module('assemblyNgApp').
 			var userStatusRoute = Restangular.one('user', user).one('job', 'status');
 			var jobRoute = Restangular.one('user', user).one('job');
 			var shockRoute = Restangular.one('shock/');
+			var serveRoute = Restangular.one('static', 'serve').one(user, 'job');
+			var staticRoute = Restangular.one('static', user).one('job')
 
 			// Storage
 			var statusAll; 
@@ -138,7 +140,7 @@ angular.module('assemblyNgApp').
 				},
 				getJobInfo: function(job_id) {
 					var deferred = $q.defer();
-					jobRoute.one(job_id, 'status').get({'format': 'json'}).then(function(data){
+					jobRoute.one(job_id, 'data').get().then(function(data){
 							var jobInfo = data;
 							deferred.resolve(jobInfo);
 						});
@@ -210,7 +212,15 @@ angular.module('assemblyNgApp').
 						deferred.resolve(data);							
 					});
 					return deferred.promise;
-
+				},
+				getJobResults: function(job_id){
+					var deferred = $q.defer();
+					serveRoute.one(job_id).get({"quast": "true"}).then(function(res){
+						staticRoute.one(job_id, 'quast').one('contig', 'report.txt').get().then(function(data){
+							deferred.resolve(data);
+						})
+					});
+					return deferred.promise;
 				}
 			}
 		}]);
