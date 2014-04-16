@@ -1,0 +1,23 @@
+<div class="container" ng-controller="JobInfoCtrl">
+	<div class="col-md-12">
+	<h1>Job Report: {{jobInfo.job_id}}</h1>
+	<accordion>
+		<accordion-group heading="Summary" is-open="true">
+			<table class='table table-hover table-striped'>
+				<tbody ng:repeat='fileset in libs'>
+					<th>Library {{$index+1}}</th>
+					<tr ng:repeat='file in fileset'>
+						<td>{{file.filename}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</accordion-group>
+		<accordion-group heading="Quast Report" is-open="false">
+			<pre>{{log}}</pre>
+		</accordion-group>
+		<accordion-group heading="Job Metadata" is-open="false">
+			<pre>{{jobInfoPretty}}</pre>
+		</accordion-group>
+	</accordion>
+	</div>
+</div>
